@@ -23,7 +23,7 @@ set $menu wofi --show run -Iib
 # i3-gaps
 # for_window [class="^.*"] border pixel 0
 
-font RobotoMono Nerd Font 18px
+font JetBrainsMono Nerd Font 20px
 gaps inner 5
 gaps outer 0
 smart_gaps on
@@ -287,6 +287,7 @@ exec --no-startup-id flameshot
 exec --no-startup-id mako
 exec --no-startup-id nm-applet
 exec --no-startup-id rustup default stable
+exec --no-startup-id signal-desktop
 exec --no-startup-id sway-audio-idle-inhibit
 
 # Start on specific workspaces
@@ -295,8 +296,6 @@ exec --no-startup-id swaymsg 'workspace 2; exec --no-startup-id firefox'
 exec --no-startup-id swaymsg 'workspace 3; exec --no-startup-id foot'
 exec --no-startup-id swaymsg 'workspace 4; exec --no-startup-id foot yazi'
 exec --no-startup-id swaymsg 'workspace 5; exec --no-startup-id obsidian'
-exec --no-startup-id swaymsg 'workspace 9; exec --no-startup-id signal-desktop'
-# exec --no-startup-id swaymsg 'workspace 10; exec --no-startup-id foot spotify_player'
 
 # Idle configuration
 exec swayidle -w \

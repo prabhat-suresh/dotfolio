@@ -70,6 +70,9 @@
   # Set your time zone.
   time.timeZone = "Asia/Kolkata";
 
+  # Location
+  location.provider = "geoclue2";
+
   # Select internationalisation properties.
   i18n.defaultLocale = "en_IN";
 
@@ -123,8 +126,6 @@
   };
 
   security.rtkit.enable = true;
-
-
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users = {
@@ -180,7 +181,6 @@
         qt5.qtwayland
         sway-audio-idle-inhibit
         swayidle
-        swaylock
         swaylock-effects
         wl-clipboard 
         wofi
@@ -220,20 +220,6 @@
       # };
     };
     fzf.fuzzyCompletion = true;
-
-    # Enable the regreet greeter
-    # regreet = {
-    #   enable = true;
-    #   settings = {};
-    # };
-
-    # Gaming
-    steam = {
-      enable = true;
-      remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-      dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-      localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
-    };
   };
 
   # Allow unfree packages
@@ -260,8 +246,8 @@
       bat
       bato
       cargo
-      clight
-      clightd
+      # clight
+      # clightd
       cmake
       fastfetch
       ffmpeg
@@ -269,6 +255,7 @@
       fzf
       gcc
       hunspell
+      img2pdf
       kdePackages.gwenview
       kdePackages.okular
       libreoffice-qt
@@ -304,6 +291,8 @@
       virtio-win
       vlc
       wireshark
+      wlr-protocols
+      wl-gammactl
       zsh-fzf-history-search
       zsh-fzf-tab
       zsh-powerlevel10k
@@ -328,7 +317,9 @@
         # };
       };
       # gtk portal needed to make gtk apps happy
-      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+
+
+      extraPortals = with pkgs; [ xdg-desktop-portal-gtk xdg-desktop-portal-wlr ];
     };
     mime = {
       enable = true;
@@ -352,9 +343,17 @@
     };
   };
 
-  fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = ["RobotoMono"]; })
-  ];
+  fonts = {
+    packages = with pkgs; [
+      (nerdfonts.override { fonts = ["JetBrainsMono"]; })
+    ];
+    fontDir.enable = true;
+    fontconfig.defaultFonts = {
+      serif = ["JetBrainsMono Nerd Font"];
+      sansSerif = ["JetBrainsMono Nerd Font"];
+      monospace = ["JetBrainsMono Nerd Font"];
+    };
+  };
 
 
 
@@ -447,14 +446,44 @@
     spice-vdagentd.enable = true;
 
     # clight display brightness and colour manager
-    # clight = {
-    #   enable = true;
-    # };
+    clight = {
+      enable = true;
+    };
 
     mpd = {
       enable = true;
       musicDirectory = "/home/prabhat/Music";
+      # Config suggested for ncmpcpp
+      extraConfig = ''
+        audio_output {
+          type "pipewire"
+          name "My PipeWire Output"
+        }
+      '';
+
+      # Config suggested on wiki for ALSA
+      # extraConfig = ''
+      #   audio_output {
+      #     type "alsa"
+      #     name "My ALSA"
+      #     # device "hw:0,0"	# optional 
+      #     format "44100:16:2"	# optional
+      #     mixer_type		"hardware"
+      #     mixer_device	"default"
+      #     mixer_control	"PCM"
+      #   }
+      # '';
+      user = "prabhat";
+
+      # Optional:
+      # network.listenAddress = "any"; # if you want to allow non-localhost connections
+      # network.startWhenNeeded = true; # systemd feature: only start MPD service upon connection to its socket
     };
+  };
+
+  systemd.services.mpd.environment = {
+    # https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/609
+    XDG_RUNTIME_DIR = "/run/user/${toString config.users.users.prabhat.uid}"; # User-id must match above user. MPD will look inside this directory for the PipeWire socket.
   };
 
   # powerManagement.powerUpCommands = "";
