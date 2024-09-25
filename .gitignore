@@ -12,23 +12,25 @@
 !/home
 /home/prabhat/*
 
-!/home/prabhat/kickstart.nixvim
-!/home/prabhat/.zshrc
 !/home/prabhat/.p10k.zsh
+!/home/prabhat/.zshrc
+!/home/prabhat/kickstart.nixvim
 
 !/home/prabhat/.config
 /home/prabhat/.config/*
 
-!/home/prabhat/.config/kitty
-!/home/prabhat/.config/foot
-!/home/prabhat/.config/clight
 !/home/prabhat/.config/bato
-!/home/prabhat/.config/ncmpcpp
+!/home/prabhat/.config/flameshot
+!/home/prabhat/.config/foot
+!/home/prabhat/.config/kitty
 !/home/prabhat/.config/mako
 !/home/prabhat/.config/nvim
 !/home/prabhat/.config/sway
 !/home/prabhat/.config/swaylock
-!/home/prabhat/.config/waybar
-!/home/prabhat/.config/wofi
+!/home/prabhat/.config/swaync
+!/home/prabhat/.config/tmuxinator
 !/home/prabhat/.config/user-dirs.dirs
 !/home/prabhat/.config/user-dirs.locale
+!/home/prabhat/.config/waybar
+!/home/prabhat/.config/wluma
+!/home/prabhat/.config/wofi

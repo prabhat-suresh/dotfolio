@@ -73,18 +73,106 @@
       #        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       servers = {
         clangd = {
-         enable = true;
+          enable = true;
+          autostart = true;
         };
+        # GO
         gopls = {
-         enable = true;
+          enable = true;
+          autostart = true;
+        };
+
+        # Python
+        pylsp = {
+          enable = true;
+          autostart = true;
         };
         pyright = {
-         enable = true;
+          enable = true;
+          autostart = true;
         };
+        ruff-lsp = {
+          enable = true;
+          autostart = true;
+        };
+
         rust-analyzer = {
           enable = true;
           installCargo = false;
           installRustc = false;
+          autostart = true;
+        };
+
+        # Ocaml
+        ocamllsp = {
+          enable = true;
+          autostart = true;
+        };
+
+        # Haskell
+        hls = {
+          enable = true;
+          autostart = true;
+        };
+
+        csharp-ls = {
+          enable = true;
+          autostart = true;
+        };
+
+        jsonls = {
+          enable = true;
+          autostart = true;
+        };
+
+        cssls = {
+          enable = true;
+          autostart = true;
+        };
+
+        ts-ls = {
+          enable = true;
+          autostart = true;
+        };
+
+        nextls = {
+          enable = true;
+          autostart = true;
+        };
+
+        cmake = {
+          enable = true;
+          autostart = true;
+        };
+        
+        eslint = {
+          enable = true;
+          autostart = true;
+        };
+
+        html = {
+          enable = true;
+          autostart = true;
+        };
+
+        emmet-ls = {
+          enable = true;
+          autostart = true;
+        };
+
+        htmx = {
+          enable = true;
+          autostart = true;
+        };
+
+        bashls = {
+          enable = true;
+          autostart = true;
+        };
+
+        yamlls = {
+          enable = true;
+          autostart = true;
         };
         # ...etc. See `https://nix-community.github.io/nixvim/plugins/lsp` for a list of pre-configured LSPs
         #

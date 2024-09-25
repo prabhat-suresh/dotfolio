@@ -20,11 +20,11 @@
   # Bootloader
   boot = {
     initrd.kernelModules = [ "amdgpu" ];
-    kernelPackages = pkgs.linuxPackages_latest;   # latest stable kernel
-    # kernelPackages = pkgs.linuxPackages;    # default old kernel
+    # kernelPackages = pkgs.linuxPackages_latest;   # latest kernel
+    kernelPackages = pkgs.linuxPackages;    # default old kernel
     loader = {
       systemd-boot.enable = true;
-      systemd-boot.configurationLimit = 10;	# max 20 previous versions of builds
+      systemd-boot.configurationLimit = 5;	# max 5 previous versions of builds
       efi.canTouchEfiVariables = true;
     };
   };
@@ -37,7 +37,7 @@
     gc = {
       automatic = true;
       dates = "weekly";
-      options = "--delete-older-than 7d";
+      options = "--delete-older-than 10d";
     };
   };
 
@@ -71,7 +71,7 @@
   time.timeZone = "Asia/Kolkata";
 
   # Location
-  location.provider = "geoclue2";
+  # location.provider = "geoclue2";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_IN";
@@ -155,13 +155,14 @@
       };
       shellAliases = {
         cat = "bat";
+        ls = "ls -a --color";
+        tmux = "tmux -u";
       };
       promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme && fastfetch";
     };
     git = {
       enable = true;
     };
-    lazygit.enable = true;
   
     waybar.enable = true;
     sway = {
@@ -176,13 +177,21 @@
         copyq
         flameshot
         foot
-        mako 
+        kdePackages.gwenview
+        kdePackages.okular
+        libreoffice-qt
         networkmanagerapplet
+        obs-studio
+        obsidian
+        playerctl
         qt5.qtwayland
         sway-audio-idle-inhibit
         swayidle
         swaylock-effects
+        swaynotificationcenter
+        vlc
         wl-clipboard 
+        wluma
         wofi
       ];
     };
@@ -220,6 +229,55 @@
       # };
     };
     fzf.fuzzyCompletion = true;
+
+    tmux = {
+      baseIndex = 1;
+      clock24 = true;
+      enable = true;
+      escapeTime = 0;
+      extraConfig = "
+                    set -g @catppuccin_directory_text '#{b:pane_current_path}'
+                    set -g @catppuccin_status_connect_separator 'no'
+                    set -g @catppuccin_status_fill 'icon'
+                    set -g @catppuccin_status_left_separator  ' '
+                    set -g @catppuccin_status_modules_left 'session'
+                    set -g @catppuccin_status_modules_right 'directory date_time'
+                    set -g @catppuccin_status_right_separator ' '
+                    set -g @catppuccin_status_right_separator_inverse 'no'
+                    set -g @catppuccin_window_current_fill 'number'
+                    set -g @catppuccin_window_current_text '#W#{?window_zoomed_flag,(),}'
+                    set -g @catppuccin_window_default_fill 'number'
+                    set -g @catppuccin_window_default_text '#W'
+                    set -g @catppuccin_window_left_separator ''
+                    set -g @catppuccin_window_middle_separator ' █'
+                    set -g @catppuccin_window_number_position 'right'
+                    set -g @catppuccin_window_right_separator ' '
+        ";
+                    # set -g @tilish-default 'main-vertical'
+                    # set -g default-command "reattach-to-user-namespace -l $SHELL"
+                    # set -g detach-on-destroy off     # don't exit from tmux when closing a session
+
+      extraConfigBeforePlugins = "
+                    set -g allow-passthrough on
+                    set -ga update-environment TERM
+                    set -ga update-environment TERM_PROGRAM
+                    set -g default-terminal 'foot'
+                    set -g pane-active-border-style 'fg=magenta,bg=default'
+                    set -g pane-border-style 'fg=brightblack,bg=default'
+                    set -g set-clipboard on          # use system clipboard
+                    set -g status-position top       # macOS / darwin style
+                    set -g mouse on
+        ";
+      historyLimit = 1000000;
+      keyMode = "vi";
+      plugins = with pkgs.tmuxPlugins; [
+        catppuccin
+        mode-indicator
+        tilish
+      ];
+      secureSocket = true;
+      terminal = "screen-256color";
+    };
   };
 
   # Allow unfree packages
@@ -236,41 +294,31 @@
       AMD_VULKAN_ICD = "RADV";	#hardware acceleration
       # Enable wayland on firefox
       MOZ_ENABLE_WAYLAND=1;
+      # As suggested in https://github.com/maximbaz/wluma/issues/8
+      WLR_DRM_NO_MODIFIERS=1;
       EDITOR = "nvim";
     };
     sessionVariables.GTK_THEME = "Adwaita:dark";
-    # shellAliases = {
-    #     ls = "ls -a";
-    # };
     systemPackages = with pkgs; [
       bat
       bato
       cargo
-      # clight
-      # clightd
       cmake
+      discord
+      exfat
       fastfetch
       ffmpeg
       file
       fzf
       gcc
+      ghc
       hunspell
       img2pdf
-      kdePackages.gwenview
-      kdePackages.okular
-      libreoffice-qt
-      ncmpcpp
       nodePackages.npm
       nodejs
       nwg-displays
-      obs-studio
-      obsidian
-      playerctl
-      proton-pass
-      protonmail-desktop
-      protonvpn-cli
-      protonvpn-cli_2
-      protonvpn-gui
+      ocaml
+      opam
       python3
       qemu
       qt-video-wlr
@@ -284,19 +332,38 @@
       spice
       spice-gtk
       spice-protocol
-      tmux
+      stockfish
+      tlrc
+      tmuxinator
       traceroute
       unzip
       virt-viewer
       virtio-win
-      vlc
       wireshark
-      wlr-protocols
-      wl-gammactl
       zsh-fzf-history-search
       zsh-fzf-tab
       zsh-powerlevel10k
-    ];
+    ] ++ 
+      (with haskellPackages; [
+        cabal-install
+        diagrams
+        # ghc
+        # ghcup
+        haskell-language-server
+      ]) ++
+    (with ocamlPackages; [
+        batteries
+        core 
+        core_extended 
+        dune_3
+        findlib
+        merlin 
+        ocaml-lsp
+        ocamlformat
+        odoc
+        utop 
+        vg # for vector graphics
+    ]);
   };
 
   xdg = {
@@ -325,19 +392,30 @@
       enable = true;
       defaultApplications = {
         "application/pdf" = "org.kde.okular.desktop";
-        "image/png" = "org.kde.gwenview.desktop";
-        "x-scheme-handler/http" = "firefox.desktop";
-        "x-scheme-handler/https" = "firefox.desktop";
-        "text/html" = "nvim.desktop";
-        "text/plain" = "nvim.desktop";
-        "application/xhtml+xml" = "firefox.desktop";
-        "x-scheme-handler/chrome" = "firefox.desktop";
         "application/x-extension-htm" = "firefox.desktop";
         "application/x-extension-html" = "firefox.desktop";
         "application/x-extension-shtml" = "firefox.desktop";
-        "application/x-extension-xhtml" = "firefox.desktop";
         "application/x-extension-xht" = "firefox.desktop";
+        "application/x-extension-xhtml" = "firefox.desktop";
+        "application/xhtml+xml" = "firefox.desktop";
+        "audio/mp3" = "vlc.desktop";
+        "audio/mpeg" = "vlc.desktop";
+        "image/gif" = "vlc.desktop";
+        "image/jpeg" = "org.kde.gwenview.desktop";
+        "image/png" = "org.kde.gwenview.desktop";
+        "text/calendar" = "nvim.desktop";
+        "text/css" = "nvim.desktop";
+        "text/html" = "nvim.desktop";
+        "text/markdown" = "obsidian.desktop";
+        "text/plain" = "nvim.desktop";
+        "text/x-c" = "nvim.desktop";
+        "text/x-h" = "nvim.desktop";
+        "video/mp4" = "vlc.desktop";
+        "video/mpeg" = "vlc.desktop";
         "x-scheme-handler/about" = "firefox.desktop";
+        "x-scheme-handler/chrome" = "firefox.desktop";
+        "x-scheme-handler/http" = "firefox.desktop";
+        "x-scheme-handler/https" = "firefox.desktop";
         "x-scheme-handler/unknown" = "firefox.desktop";
       };
     };
@@ -396,35 +474,26 @@
         user = "prabhat";
       };
       sddm = {
+        autoLogin.relogin = true;
         enable = true;
         wayland.enable = true;
-        # wayland.compositor = "kwin"; ?
+        wayland.compositor = "weston";
         settings = {};
-        # theme = "catppuccin";
+        theme = "catppuccin";
         extraPackages = [];
       };
-      # defaultSession = "gnome";
+      defaultSession = "sway";
     };
     getty.autologinUser = "prabhat";
 
     # Enable CUPS to print documents.
     printing.enable = true;
-    # A TUI greeter (login manager a.k.a display manager)
-    # greetd = {
-    #   enable = true;
-    #   settings = {
-    #     default_session = {
-    #       command = "${pkgs.greetd.regreet}/bin/regreet -c sway";
-    #       user = "greeter";
-    #     };
-    #   };
-    # };
   
     # Enable the OpenSSH daemon.
     openssh.enable = true;
   
     # Suspend on closing laptop lid
-    logind.lidSwitch = "suspend";     # hibernate is buggy - Trackpad, Speakers etc.
+    logind.lidSwitch = "suspend"; # Hibernate is buggy - mouse, speakers etc. don't work sometimes
   
     # Power Management
     upower = {
@@ -438,56 +507,13 @@
     };
     power-profiles-daemon.enable = true;
 
-    # Text expander written in Rust
-    #espanso = {
-    #  enable = true;
-    #  wayland =true;
-    #};
     spice-vdagentd.enable = true;
-
-    # clight display brightness and colour manager
-    clight = {
-      enable = true;
-    };
-
-    mpd = {
-      enable = true;
-      musicDirectory = "/home/prabhat/Music";
-      # Config suggested for ncmpcpp
-      extraConfig = ''
-        audio_output {
-          type "pipewire"
-          name "My PipeWire Output"
-        }
-      '';
-
-      # Config suggested on wiki for ALSA
-      # extraConfig = ''
-      #   audio_output {
-      #     type "alsa"
-      #     name "My ALSA"
-      #     # device "hw:0,0"	# optional 
-      #     format "44100:16:2"	# optional
-      #     mixer_type		"hardware"
-      #     mixer_device	"default"
-      #     mixer_control	"PCM"
-      #   }
-      # '';
-      user = "prabhat";
-
-      # Optional:
-      # network.listenAddress = "any"; # if you want to allow non-localhost connections
-      # network.startWhenNeeded = true; # systemd feature: only start MPD service upon connection to its socket
-    };
   };
 
-  systemd.services.mpd.environment = {
-    # https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/609
-    XDG_RUNTIME_DIR = "/run/user/${toString config.users.users.prabhat.uid}"; # User-id must match above user. MPD will look inside this directory for the PipeWire socket.
-  };
-
-  # powerManagement.powerUpCommands = "";
-  powerManagement.powerDownCommands = "cat /proc/net/dev >> /home/prabhat/Desktop/networkUsage.txt";
+  # powerManagement = {
+  #   powerUpCommands = "nmcli c up id jp-free-154028.protonvpn.udp";
+  #   powerDownCommands = "cat /proc/net/dev >> /home/prabhat/Desktop/networkUsage.txt";
+  # };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -501,11 +527,11 @@
     #System Autoupgrade
     autoUpgrade = {
       enable = true;
-      allowReboot = true;
+      allowReboot = false;
       # For bleeding edge
       channel = "https://channels.nixos.org/nixos-unstable";
       # Stable release
-      # system.autoUpgrade.channel = "https://channels.nixos.org/nixos-24.05";
+      # channel = "https://channels.nixos.org/nixos-24.05";
       dates = "weekly";
     };
   };

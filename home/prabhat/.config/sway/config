@@ -1,10 +1,9 @@
-# Read `man 5 sway` for a complete reference.
+# Read `man 5 sway` for a complete reference
 
 # To set sway and wayland_display for flameshot gui
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway 
 
 ### Variables
-#
 # Logo key. Use Mod1 for Alt and Mod4 for super key
 set $mod Mod4
 # Home row direction keys, like vim
@@ -15,13 +14,7 @@ set $right l
 # Your preferred terminal emulator
 set $term foot
 # Your preferred application launcher
-# Note: pass the final command to swaymsg so that the resulting window can be opened
-# on the original workspace that the command was run on.
-# set $menu dmenu_path | dmenu | xargs swaymsg exec --
-set $menu wofi --show run -Iib
-
-# i3-gaps
-# for_window [class="^.*"] border pixel 0
+set $menu wofi --show run -ib
 
 font JetBrainsMono Nerd Font 20px
 gaps inner 5
@@ -32,107 +25,39 @@ smart_borders on
 set $borderwidth 1
 hide_edge_borders both
 
-# Sway Theming
+### Sway Theming
 # Catppuccin Mocha
 client.focused          #b4befe #b4befe #b4befe #b4befe #b4befe
 client.unfocused        #1e1e2e #1e1e2e #1e1e2e #1e1e2e #1e1e2e
 client.focused_inactive #313244 #313244 #313244 #313244 #313244
 
-# swayfx config
-
+### swayfx config
 # Window blur:
 blur enable
-# blur_xray enable|disable: this will set floating windows to blur based on the background, not the windows below. You probably want to set this to disable :)
-# blur_passes <integer value 0 - 10>
-# blur_radius <integer value 0 - 10>
-# blur_noise <float value 0 - 1>
-# blur_brightness <float value 0 - 2>
-# blur_contrast <float value 0 - 2>
-# blur_saturation <float value 0 - 2>
 
 # Corner radius: corner_radius <val>
 corner_radius 20
 
 # Window shadows:
 shadows enable
-# shadows_on_csd enable|disable (Note: The shadow might not fit some windows)
+
 # shadow_blur_radius <integer value 0 - 100>
 shadow_blur_radius 20
-# shadow_color <hex color with alpha> ex, #0000007F
-# shadow_offset <x offset> <y offset>
-# shadow_inactive_color <hex color with alpha> ex, #0000007F
 
 # LayerShell effects (to blur panels / notifications etc):
-# layer_effects <layer namespace> <effects>
-# The current layer namespaces can be shown with swaymsg -r -t get_outputs | jq '.[0].layer_shell_surfaces | .[] | .namespace'
-# Example: layer_effects "waybar" blur enable; shadows enable; corner_radius 6
 layer_effects "waybar" blur enable; shadows enable; corner_radius 6
 layer_effects "notifications" blur enable; shadows enable
-# ; corner_radius 6
-#     Note: If an application uses gtk, its namespace is likely to be "gtk-layer-shell"
-# SwayIPC Example: swaymsg "layer_effects 'waybar' 'blur enable; shadows enable; corner_radius 6'"
-# Available Effects:
-#     blur <enable|disable>
-#     blur_ignore_transparent <enable|disable>
-#     shadows <enable|disable>
-#     corner_radius <int>
+
 # Dim unfocused windows:
-# default_dim_inactive <float value 0.0 - 1.0>
 default_dim_inactive 0.2
-# for_window [CRITERIA_HERE] dim_inactive <float value 0.0 - 1.0>
-# dim_inactive_colors.unfocused <hex color> ex, #000000FF
-# dim_inactive_colors.urgent <hex color> ex, #900000FF
-# Application saturation: for_window [CRITERIA HERE] saturation <set|plus|minus> <val 0.0 <-> 2.0>
-# Keep/remove separator border between titlebar and content: titlebar_separator enable|disable
-# Treat Scratchpad as minimized: scratchpad_minimize enable|disable: we recommend keeping this setting off, as there are many kinks to iron out here
 
 ### Output configuration
-#
-# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+# Default wallpaper
 output * bg  ~/Pictures/Wallpapers/AuroraBorealisLikeColourfulSkyWallhaven-6dpzmq_1920x1080.png fill
 
-# Example configuration:
-#
-#   output HDMI-A-1 resolution 1920x1080 position 1920,0
-#
-# You can get the names of your outputs by running: swaymsg -t get_outputs
-
-### Idle configuration
-#
-# Example configuration:
-#
-# exec swayidle -w \
-#          timeout 300 'swaylock -f -c 000000' \
-#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-#          before-sleep 'swaylock -f -c 000000'
-#
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
-# resumed. It will also lock your screen before your computer goes to sleep.
-
-### Input configuration
-#
-# Example configuration:
-#
-#   input "2:14:SynPS/2_Synaptics_TouchPad" {
-#       dwt enabled
-#       tap enabled
-#       natural_scroll enabled
-#       middle_emulation enabled
-#   }
-#
-# You can get the names of your inputs by running: swaymsg -t get_inputs
-# Read `man 5 sway-input` for more information about this section.
-
 ### Key bindings
-#
-# Basics:
-#
 # Start a terminal
 bindsym $mod+Return exec $term
-
-# Start firefox
-bindsym $mod+b exec firefox
 
 # Kill focused window
 bindsym $mod+q kill
@@ -140,43 +65,23 @@ bindsym $mod+q kill
 # Start your launcher
 bindsym $mod+d exec $menu
 
-# Drag floating windows by holding down $mod and left mouse button.
-# Resize them with right mouse button + $mod.
-# Despite the name, also works for non-floating windows.
-# Change normal to inverse to use left mouse button for resizing and right
-# mouse button for dragging.
-floating_modifier $mod normal
-
 # Reload the configuration file
 bindsym $mod+Shift+c reload
 
 # Moving around:
-#
 # Move your focus around
 bindsym $mod+$left focus left
 bindsym $mod+$down focus down
 bindsym $mod+$up focus up
 bindsym $mod+$right focus right
-# Or use $mod+[up|down|left|right]
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
 
 # Move the focused window with the same, but add Shift
 bindsym $mod+Shift+$left move left
 bindsym $mod+Shift+$down move down
 bindsym $mod+Shift+$up move up
 bindsym $mod+Shift+$right move right
-# Ditto, with arrow keys
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
-#
-# Workspaces:
-#
 
+# Workspaces:
 # switch to workspace
 bindsym $mod+1 workspace number 1
 bindsym $mod+2 workspace number 2
@@ -200,111 +105,44 @@ bindsym $mod+Shift+8 move container to workspace number 8
 bindsym $mod+Shift+9 move container to workspace number 9
 bindsym $mod+Shift+0 move container to workspace number 10
 
-# assigning workspaces
-# assign [app_id=“firefox”] 2
-# for_window [app_id=“firefox”] focus
-#
-# assign [class=“firefox”] 2
-# for_window [class=“firefox”] focus
-
-# Note: workspaces can have any name you want, not just numbers.
-# We just use 1-10 as the default.
-#
-# Layout stuff:
-#
-# You can "split" the current object of your focus with
-# $mod+b or $mod+v, for horizontal and vertical splits
-# respectively.
-bindsym $mod+Shift+b splith
-bindsym $mod+Shift+v splitv
-
-# Switch the current container between different layout styles
-# bindsym $mod+s layout stacking
-# bindsym $mod+w layout tabbed
-# bindsym $mod+e layout toggle split
-
 # Make the current focus fullscreen
 bindsym $mod+f fullscreen
 
-# Toggle the current focus between tiling and floating mode
-# bindsym $mod+Shift+space floating toggle
-
-# Swap focus between the tiling area and the floating area
-# bindsym $mod+space focus mode_toggle
-
-# Move focus to the parent container
-bindsym $mod+a focus parent
-#
-# Scratchpad:
-#
-# Sway has a "scratchpad", which is a bag of holding for windows.
-# You can send windows there and get them back later.
-
-# Move the currently focused window to the scratchpad
-# bindsym $mod+Shift+minus move scratchpad
-
-# Show the next scratchpad window or hide the focused scratchpad window.
-# If there are multiple scratchpad windows, this command cycles through them.
-# bindsym $mod+minus scratchpad show
-#
-#for screenshot copied to clipboard
+#screenshot
 bindsym --release Print exec flameshot gui
-#
-# Resizing containers:
-#
-mode "resize" {
-# left will shrink the containers width
-# right will grow the containers width
-# up will shrink the containers height
-# down will grow the containers height
-        bindsym $left resize shrink width 10px
-        bindsym $down resize grow height 10px
-        bindsym $up resize shrink height 10px
-        bindsym $right resize grow width 10px
 
-# Ditto, with arrow keys
-        bindsym Left resize shrink width 10px
-        bindsym Down resize grow height 10px
-        bindsym Up resize shrink height 10px
-        bindsym Right resize grow width 10px
-
-# Return to default mode
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
-bindsym $mod+Shift+r mode "resize"
-
-bar {
-    swaybar_command waybar
-}
+# bar {
+#     swaybar_command waybar
+# }
 
 # Startup programs
 exec --no-startup-id autotiling-rs
 exec --no-startup-id bato
-exec --no-startup-id clight
 exec --no-startup-id copyq
 exec --no-startup-id flameshot
-exec --no-startup-id mako
 exec --no-startup-id nm-applet
-exec --no-startup-id rustup default stable
+# exec --no-startup-id rustup default stable
 exec --no-startup-id signal-desktop
 exec --no-startup-id sway-audio-idle-inhibit
+exec --no-startup-id swaync
+exec --no-startup-id wluma
 
 # Start on specific workspaces
-exec --no-startup-id swaymsg 'workspace 1; exec --no-startup-id foot'
+exec --no-startup-id swaymsg 'workspace 3; exec --no-startup-id obsidian'
 exec --no-startup-id swaymsg 'workspace 2; exec --no-startup-id firefox'
-exec --no-startup-id swaymsg 'workspace 3; exec --no-startup-id foot'
-exec --no-startup-id swaymsg 'workspace 4; exec --no-startup-id foot yazi'
-exec --no-startup-id swaymsg 'workspace 5; exec --no-startup-id obsidian'
+exec --no-startup-id swaymsg 'workspace 1; exec --no-startup-id foot tmuxinator default'
 
 # Idle configuration
 exec swayidle -w \
-        timeout 180 'systemctl suspend' \
+        timeout 300 'swaylock' \
         before-sleep 'playerctl pause' \
         before-sleep 'swaylock'
 
 # clipboard (copyq)
 bindsym $mod+c exec copyq toggle
+
+# Toggle control center
+bindsym $mod+n exec swaync-client -t -sw
 
 # Shutdown, Reboot, Lock Screen, and Logout 
 
@@ -316,15 +154,12 @@ mode $power_mode {
     bindsym l         exec swaylock, mode "default"
     bindsym q         exec sway exit
     bindsym h         exec systemctl hibernate, mode "default"
-    #bindsym s        exec sudo  /lib/systemd/systemd-sleep hybrid-sleep 
     bindsym s         exec systemctl suspend, mode "default"
     bindsym Return    mode "default"
     bindsym Escape    mode "default"
 }
 
-##
-## Input settings (touchpad and keyboard)
-##
+### Input settings (touchpad, keyboard, brightness, volume etc)
 
 input "1267:12637:ELAN0754:00_04F3:315D_Touchpad" {
     tap enabled
@@ -337,13 +172,6 @@ input "1267:12637:ELAN0754:00_04F3:315D_Touchpad" {
 input "1267:12637:ELAN0754:00_04F3:315D_Mouse" {
     natural_scroll enabled
 }
-
-###
-### Screen brightness
-###
-
-# bindsym XF86MonBrightnessUp exec light -A 5
-# bindsym XF86MonBrightnessDown exec light -U 5
 
 bindsym XF86MonBrightnessUp exec brightnessctl s +5%
 bindsym XF86MonBrightnessDown exec brightnessctl s 5%-

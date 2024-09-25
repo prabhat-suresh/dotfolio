@@ -10,7 +10,7 @@
         nix = ["nix"];
         markdown = [
           "markdownlint"
-          #vale
+          "vale"
         ];
         #clojure = ["clj-kondo"];
         #dockerfile = ["hadolint"];
@@ -28,7 +28,7 @@
       autoCmd = {
         callback.__raw = ''
           function()
-            require('lint').try_lint()
+            require('lint').try_lint(nil, { ignore_errors = true } )
           end
         '';
         group = "lint";

@@ -11,30 +11,36 @@
     #inputs.nixvim.nixDarwinModules.nixvim
 
     # Plugins
-    ./plugins/gitsigns.nix
-    ./plugins/which-key.nix
-    ./plugins/telescope.nix
     ./plugins/conform.nix
+    ./plugins/gitsigns.nix
     ./plugins/lsp.nix
-    ./plugins/nvim-cmp.nix
     ./plugins/mini.nix
+    ./plugins/nvim-cmp.nix
+    ./plugins/telescope.nix
     ./plugins/treesitter.nix
+    ./plugins/which-key.nix
 
     # NOTE: Add/Configure additional plugins for Kickstart.nixvim
     #
     #  Here are some example plugins that I've included in the Kickstart repository.
     #  Uncomment any of the lines below to enable them (you will need to restart nvim).
     #
+    ./plugins/kickstart/plugins/autopairs.nix
     ./plugins/kickstart/plugins/debug.nix
     ./plugins/kickstart/plugins/indent-blankline.nix
     ./plugins/kickstart/plugins/lint.nix
-    ./plugins/kickstart/plugins/autopairs.nix
     ./plugins/kickstart/plugins/neo-tree.nix
     #
     # NOTE: Configure your own plugins `see https://nix-community.github.io/nixvim/`
     # Add your plugins to ./plugins/custom/plugins and import them below
-    ./plugins/custom/plugins/transparent.nix
+
+    # ./plugins/custom/plugins/chatGPT.nix
+    # ./plugins/custom/plugins/glow.nix
+    ./plugins/custom/plugins/lualine.nix
+    ./plugins/custom/plugins/haskellScopeHighlighting.nix
+    ./plugins/custom/plugins/markdownPreview.nix
     # ./plugins/custom/plugins/obsidian.nix
+    ./plugins/custom/plugins/transparent.nix
   ];
 
   /*
@@ -378,6 +384,7 @@
     extraPlugins = with pkgs.vimPlugins; [
       # Useful for getting pretty icons, but requires a Nerd Font.
       nvim-web-devicons # TODO: Figure out how to configure using this with telescope
+      render-markdown-nvim
     ];
 
     # TODO: Figure out where to move this
@@ -386,6 +393,7 @@
       if vim.g.have_nerd_font then
         require('nvim-web-devicons').setup {}
       end
+      require('render-markdown').setup({})
     '';
 
     # The line beneath this is called `modeline`. See `:help modeline`
