@@ -122,12 +122,12 @@ exec --no-startup-id copyq
 exec --no-startup-id flameshot
 exec --no-startup-id nm-applet
 # exec --no-startup-id rustup default stable
-exec --no-startup-id signal-desktop
 exec --no-startup-id sway-audio-idle-inhibit
 exec --no-startup-id swaync
-exec --no-startup-id wluma
+# exec --no-startup-id wluma
 
 # Start on specific workspaces
+exec --no-startup-id swaymsg 'workspace 9; exec --no-startup-id signal-desktop'
 exec --no-startup-id swaymsg 'workspace 3; exec --no-startup-id obsidian'
 exec --no-startup-id swaymsg 'workspace 2; exec --no-startup-id firefox'
 exec --no-startup-id swaymsg 'workspace 1; exec --no-startup-id foot tmuxinator default'

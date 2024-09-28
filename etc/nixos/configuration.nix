@@ -173,6 +173,7 @@
       extraPackages = with pkgs; [
         autotiling-rs
         bluez
+        bluez-tools
         brightnessctl
         copyq
         flameshot
@@ -191,7 +192,6 @@
         swaynotificationcenter
         vlc
         wl-clipboard 
-        wluma
         wofi
       ];
     };
@@ -300,6 +300,7 @@
     };
     sessionVariables.GTK_THEME = "Adwaita:dark";
     systemPackages = with pkgs; [
+      arena
       bat
       bato
       cargo
