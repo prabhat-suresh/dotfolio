@@ -20,8 +20,8 @@
   # Bootloader
   boot = {
     initrd.kernelModules = [ "amdgpu" ];
-    # kernelPackages = pkgs.linuxPackages_latest;   # latest kernel
-    kernelPackages = pkgs.linuxPackages;    # default old kernel
+    kernelPackages = pkgs.linuxPackages_latest;   # latest kernel
+    # kernelPackages = pkgs.linuxPackages;    # default old kernel
     loader = {
       systemd-boot.enable = true;
       systemd-boot.configurationLimit = 5;	# max 5 previous versions of builds
@@ -169,30 +169,29 @@
       enable = true;
       package = pkgs.swayfx;
       wrapperFeatures.gtk = true;
-      xwayland.enable = true; # enable xwayland
+      xwayland.enable = false; # disable xwayland
       extraPackages = with pkgs; [
-        autotiling-rs
-        bluez
-        bluez-tools
-        brightnessctl
-        copyq
-        flameshot
-        foot
-        kdePackages.gwenview
-        kdePackages.okular
+        autotiling-rs # tiling
+        bluez # bluetooth
+        bluez-tools # bluetooth tools
+        brightnessctl # brightness control
+        copyq # clipboard manager
+        flameshot # screenshot tool
+        foot # terminal
+        kdePackages.gwenview # image viewer
+        evince # pdf viewer
         libreoffice-qt
         networkmanagerapplet
-        obs-studio
-        obsidian
-        playerctl
+        obs-studio # screen recorder
+        playerctl # media player
         qt5.qtwayland
         sway-audio-idle-inhibit
-        swayidle
-        swaylock-effects
-        swaynotificationcenter
-        vlc
-        wl-clipboard 
-        wofi
+        swayidle # idle screen lock
+        swaylock-effects # lock screen effects
+        swaynotificationcenter # notification center
+        vlc # video player
+        wl-clipboard
+        wofi # launcher
       ];
     };
   
@@ -204,12 +203,12 @@
        enableSSHSupport = true;
     };
   
-    wireshark.enable = true;
+    wireshark.enable = true; # network sniffer
 
-    iftop.enable = true;
+    iftop.enable = true; # network usage
 
     # virt-manager
-    virt-manager.enable = true;
+    virt-manager.enable = true; # virtualization manager
 
     # dconf (system management tool)
     dconf = {
@@ -230,7 +229,7 @@
     };
     fzf.fuzzyCompletion = true;
 
-    tmux = {
+    tmux = { # terminal multiplexer
       baseIndex = 1;
       clock24 = true;
       enable = true;
@@ -300,50 +299,46 @@
     };
     sessionVariables.GTK_THEME = "Adwaita:dark";
     systemPackages = with pkgs; [
-      arena
-      bat
-      bato
-      cargo
-      cmake
-      discord
-      exfat
-      fastfetch
-      ffmpeg
-      file
-      fzf
+      bat # better cat
+      bato # battery notification
+      btop # blazingly fast system resource monitor (written in Rust)
+      cargo # rust package manager
+      cmake # build system generator
+      fastfetch # system information
+      ffmpeg # video converter
+      file # file type identification
+      fzf # fuzzy finder
       gcc
-      ghc
-      hunspell
-      img2pdf
+      gdb
+      ghc # haskell compiler
+      hunspell # spell checker
+      img2pdf # convert images to pdf
       nodePackages.npm
       nodejs
-      nwg-displays
-      ocaml
-      opam
+      nwg-displays # displays manager
+      ocaml # ocaml compiler
+      opam # ocaml package manager
+      pkg-config
       python3
-      qemu
-      qt-video-wlr
-      ripgrep
+      qemu # virtual machine
+      qt-video-wlr # wlroots video player
+      ripgrep # search tool
       ripgrep-all
-      rust-analyzer
-      rustc
-      rustfmt
-      rustup
-      signal-desktop
-      spice
-      spice-gtk
+      rust-analyzer # rust language server
+      rustc # rust compiler
+      rustfmt # rust formatter
+      rustup # rust package manager
+      spice # remote desktop protocol
+      spice-gtk # spice client
       spice-protocol
-      stockfish
-      tlrc
-      tmuxinator
+      tlrc # blazingly fast tldr client (written in Rust)
       traceroute
       unzip
-      virt-viewer
-      virtio-win
-      wireshark
+      virt-viewer # virtual machine viewer
+      virtio-win # virtual machine driver
       zsh-fzf-history-search
       zsh-fzf-tab
-      zsh-powerlevel10k
+      zsh-powerlevel10k # zsh theme
     ] ++ 
       (with haskellPackages; [
         cabal-install
@@ -354,15 +349,15 @@
       ]) ++
     (with ocamlPackages; [
         batteries
-        core 
-        core_extended 
+        core
+        core_extended
         dune_3
         findlib
-        merlin 
+        merlin
         ocaml-lsp
         ocamlformat
         odoc
-        utop 
+        utop
         vg # for vector graphics
     ]);
   };
@@ -392,7 +387,7 @@
     mime = {
       enable = true;
       defaultApplications = {
-        "application/pdf" = "org.kde.okular.desktop";
+        "application/pdf" = "org.gnome.evince.desktop";
         "application/x-extension-htm" = "firefox.desktop";
         "application/x-extension-html" = "firefox.desktop";
         "application/x-extension-shtml" = "firefox.desktop";

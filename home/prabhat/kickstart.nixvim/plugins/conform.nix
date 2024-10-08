@@ -50,6 +50,9 @@
           desc = "[F]ormat buffer";
         };
       }
+      {
+        mode = "n"; key = "<leader>d"; action = ":bd<CR>";
+      }
     ];
   };
 }

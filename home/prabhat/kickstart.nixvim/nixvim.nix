@@ -31,6 +31,7 @@
 
     ./plugins/custom/plugins/haskellScopeHighlighting.nix 
     ./plugins/custom/plugins/lualine.nix 
+    ./plugins/custom/plugins/renderMarkdown.nix
     ./plugins/custom/plugins/transparent.nix ];
 
   /* ===================================================================== 
@@ -211,7 +212,8 @@
 
     # [[ Basic Keymaps ]] See `:help vim.keymap.set()`
     # https://nix-community.github.io/nixvim/keymaps/index.html
-    keymaps = [ {
+    keymaps = [ 
+      {
         mode = "n"; key = "<Esc>"; action = "<cmd>nohlsearch<CR>";
       }
       # Exit terminal mode in the builtin terminal with a shortcut that is a bit 
@@ -292,13 +294,16 @@
       # https://nix-community.github.io/nixvim/plugins/todo-comments/index.html
       todo-comments = { enable = true; settings.signs = true;
       };
+
+      web-devicons = {
+        enable = true;
+      };
     };
 
     # https://nix-community.github.io/nixvim/NeovimOptions/index.html?highlight=extraplugins#extraplugins
     extraPlugins = with pkgs.vimPlugins; [
       # Useful for getting pretty icons, but requires a Nerd Font.
       nvim-web-devicons # TODO: Figure out how to configure using this with telescope
-      # render-markdown 
       supermaven-nvim
     ];
 
@@ -310,7 +315,6 @@
       require("supermaven-nvim").setup({})
     '';
         
-      # require('render-markdown').setup({})
 
     # The line beneath this is called `modeline`. See `:help modeline` 
     # https://nix-community.github.io/nixvim/NeovimOptions/index.html?highlight=extraplugins#extraconfigluapost

@@ -72,10 +72,12 @@
       #  - settings: Override the default settings passed when initializing the server.
       #        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       servers = {
+        # C/C++
         clangd = {
           enable = true;
           autostart = true;
         };
+
         # GO
         gopls = {
           enable = true;
@@ -96,6 +98,7 @@
           autostart = true;
         };
 
+        # Rust
         rust-analyzer = {
           enable = true;
           installCargo = false;
@@ -115,6 +118,7 @@
           autostart = true;
         };
 
+        # C#
         csharp-ls = {
           enable = true;
           autostart = true;
@@ -125,46 +129,42 @@
           autostart = true;
         };
 
+        # Javascript land
         cssls = {
           enable = true;
           autostart = true;
         };
-
         ts-ls = {
           enable = true;
           autostart = true;
         };
-
         nextls = {
           enable = true;
           autostart = true;
         };
+        eslint = {
+          enable = true;
+          autostart = true;
+        };
+        html = {
+          enable = true;
+          autostart = true;
+        };
+        emmet-ls = {
+          enable = true;
+          autostart = true;
+        };
+        htmx = {
+          enable = true;
+          autostart = true;
+        };
+
 
         cmake = {
           enable = true;
           autostart = true;
         };
         
-        eslint = {
-          enable = true;
-          autostart = true;
-        };
-
-        html = {
-          enable = true;
-          autostart = true;
-        };
-
-        emmet-ls = {
-          enable = true;
-          autostart = true;
-        };
-
-        htmx = {
-          enable = true;
-          autostart = true;
-        };
-
         bashls = {
           enable = true;
           autostart = true;
