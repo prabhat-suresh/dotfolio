@@ -1,0 +1,132 @@
+{
+	"$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+	"logo": {
+		"source": "~/.config/fastfetch/images/68747470733a2f2f692e696d6775722e636f6d2f367146436c41312e706e67.png",
+		"type": "kitty",
+		"height": 16,
+		"width": 34,
+		"padding": {
+			"top": 4
+			// "left": 4
+		}
+	},
+	"modules": [
+		"break",
+		{
+			"type": "custom",
+			"format": "┌────────────────────── Hardware ──────────────────────┐",
+			"outputColor": "red"
+		},
+		{
+			"type": "title",
+			"key": "  PC",
+			"keyColor": "green"
+		},
+		{
+			"type": "cpu",
+			"format": "{1}",
+			"key": "│ ├ CPU",
+			"keyColor": "green"
+		},
+		{
+			"type": "gpu",
+			"format": "{2}",
+			"key": "│ ├  GPU",
+			"keyColor": "green"
+		},
+		{
+			"type": "memory",
+			"key": "│ ├󰍛 Memory",
+			"keyColor": "green"
+		},
+		{
+			"type": "display",
+			"key": "│ ├󱍜 Display",
+			"keyColor": "green"
+		},
+		{
+			"type": "battery",
+			"key": "│ └ Battery",
+			"keyColor": "green"
+		},
+		{
+			"type": "custom",
+			"format": "└──────────────────────────────────────────────────────┘",
+			"outputColor": "red"
+		},
+		"break",
+		{
+			"type": "custom",
+			"format": "┌────────────────────── Software ──────────────────────┐",
+			"outputColor": "red"
+		},
+		{
+			"type": "os",
+			"key": " OS",
+			"keyColor": "blue"
+		},
+		{
+			"type": "kernel",
+			"key": "│ ├ Kernel",
+			"keyColor": "blue"
+		},
+		// "break",
+		{
+			"type": "wm",
+			"key": "│ ├ WM",
+			"keyColor": "blue"
+		},
+		{
+			"type": "terminal",
+			"key": "│ ├ Terminal emulator",
+			"keyColor": "blue"
+		},
+		{
+			"type": "lm",
+			"key": "│ ├  LM",
+			"keyColor": "blue"
+		},
+		{
+			"type": "uptime",
+			"key": "│ ├ Uptime ",
+			"keyColor": "magenta"
+		},
+		{
+			"type": "command",
+			"key": "│ ├󱦟 OS Age ",
+			"keyColor": "magenta",
+			"text": "birth_install=$(stat -c %W /); current=$(date +%s); time_progression=$((current - birth_install)); days_difference=$((time_progression / 86400)); echo $days_difference days"
+		},
+		{
+			"type": "gpu",
+			"format": "{3}",
+			"key": "│ ├  GPU Driver",
+			"keyColor": "magenta"
+		},
+		{
+			"type": "packages",
+			"key": "│ ├󰏖 Packages",
+			"keyColor": "magenta"
+		},
+		{
+			"type": "media",
+			"key": "│ ├󰝚  Music",
+			"keyColor": "magenta"
+		},
+		{
+			"type": "wmtheme",
+			"key": "└ └󰉼 Theme",
+			"keyColor": "magenta"
+		},
+		{
+			"type": "custom",
+			"format": "└────────────────────────────────────────────────────┘",
+			"outputColor": "red"
+		},
+		// {
+		// 	"type": "custom",
+		// 	"format": "               \u001b[90m  \u001b[31m  \u001b[32m  \u001b[33m  \u001b[34m  \u001b[35m  \u001b[36m  \u001b[37m "
+		// },
+		"break"
+	]
+}
