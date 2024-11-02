@@ -11,14 +11,16 @@
         "c"
         "diff"
         "html"
+        "hyprlang"
         "lua"
         "luadoc"
         "markdown"
-        "vim"
-        "vimdoc"
+        # "vim"
+        # "vimdoc"
       ];
 
       # TODO: Figure out how to do this
+
       #highlight = {
       #  enable = true;
 

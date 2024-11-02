@@ -17,24 +17,18 @@
   "bar_id": "bar-0",
   
   // Choose the order of the modules
-  "modules-left": ["sway/workspaces", "custom/wttr#1", "custom/wttr#2"],
+  "modules-left": ["hyprland/workspaces", "custom/wttr#1", "custom/wttr#2"],
   "modules-center": ["cpu#1", "cpu#2", "memory#1", "memory#2", "temperature#1", "temperature#2"],
   "modules-right": ["pulseaudio", "pulseaudio#2", "backlight", "backlight#2", "battery", "battery#2", "tray", "clock", "clock#2"],
   			// , "sway/language", "idle_inhibitor"
 
-  "sway/workspaces": {
+  "hyprland/workspaces": {
     "disable-scroll": false,
     "disable-click": false,
     "all-outputs": true,
-    "persistent_workspaces": {
-      "1": [],
-      "2": [],
-    },
+    "persistent_workspaces": {},
     "format": "{icon}",
-    "format-icons": {
-      "1": "",
-      "2": "",
-    },
+    "format-icons": {},
   },
 
   "backlight": {
@@ -96,12 +90,12 @@
 
   "clock": {
     "interval": 60,
-    "tooltip-format": "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>",
+    "tooltip-format": "<small>{:%B %Y}</small>\n<tt><small>{calendar}</small></tt>",
     "format": "{:%H}",
   },
   "clock#2": {
 		"interval": 60,
-    "tooltip-format": "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>",
+    "tooltip-format": "<small>{:%B %Y}</small>\n<tt><small>{calendar}</small></tt>",
     "format": "{:%M}",
   },
   "clock#3": {
@@ -161,8 +155,8 @@
   },
 
   "tray": {
-    "icon-size": 32,
-    "spacing": 8,
+    "icon-size": 24,
+    "spacing": 2,
   },
 
 //  "sway/language": {
@@ -173,7 +167,7 @@
 //    },
   
   "cpu#1": {
-    "format": "",
+    "format": " ",
     },
   "cpu#2": {
     "interval": 1,
@@ -181,7 +175,7 @@
     },
 
   "memory#1": {
-    "format": "󰍛",
+    "format": "󰍛 ",
     },
   "memory#2": {
     "interval": 1,

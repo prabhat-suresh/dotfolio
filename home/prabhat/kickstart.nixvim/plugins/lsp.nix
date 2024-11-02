@@ -93,13 +93,13 @@
           enable = true;
           autostart = true;
         };
-        ruff-lsp = {
+        ruff_lsp = {
           enable = true;
           autostart = true;
         };
 
         # Rust
-        rust-analyzer = {
+        rust_analyzer = {
           enable = true;
           installCargo = false;
           installRustc = false;
@@ -110,16 +110,24 @@
         ocamllsp = {
           enable = true;
           autostart = true;
+          package = pkgs.ocamlPackages.ocaml-lsp;
         };
 
         # Haskell
         hls = {
           enable = true;
           autostart = true;
+          installGhc = true;
+        };
+
+        # Hyprland config
+        hyprls = {
+          enable = true;
+          autostart = true;
         };
 
         # C#
-        csharp-ls = {
+        csharp_ls = {
           enable = true;
           autostart = true;
         };
@@ -134,7 +142,7 @@
           enable = true;
           autostart = true;
         };
-        ts-ls = {
+        ts_ls = {
           enable = true;
           autostart = true;
         };
@@ -150,7 +158,7 @@
           enable = true;
           autostart = true;
         };
-        emmet-ls = {
+        emmet_ls = {
           enable = true;
           autostart = true;
         };
@@ -184,7 +192,7 @@
         #  enable = true;
         #}
 
-        lua-ls = {
+        lua_ls = {
           enable = true;
 
           # cmd = {

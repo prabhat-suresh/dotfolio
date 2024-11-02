@@ -53,6 +53,9 @@
       {
         mode = "n"; key = "<leader>d"; action = ":bd<CR>";
       }
+      {
+        mode = "n"; key = "<leader>f"; action = ":Yazi<CR>";
+      }
     ];
   };
 }

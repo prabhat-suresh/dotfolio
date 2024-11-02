@@ -24,7 +24,7 @@
     ./plugins/kickstart/plugins/debug.nix 
     ./plugins/kickstart/plugins/indent-blankline.nix 
     ./plugins/kickstart/plugins/lint.nix 
-    ./plugins/kickstart/plugins/neo-tree.nix
+
     #
     # NOTE: Configure your own plugins `see https://nix-community.github.io/nixvim/` 
     # Add your plugins to ./plugins/custom/plugins and import them below
@@ -32,7 +32,9 @@
     ./plugins/custom/plugins/haskellScopeHighlighting.nix 
     ./plugins/custom/plugins/lualine.nix 
     ./plugins/custom/plugins/renderMarkdown.nix
-    ./plugins/custom/plugins/transparent.nix ];
+    ./plugins/custom/plugins/transparent.nix 
+    ./plugins/custom/plugins/yazi.nix
+];
 
   /* ===================================================================== 
   ==================== READ THIS BEFORE CONTINUING ==================== 
