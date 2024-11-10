@@ -61,7 +61,7 @@
     # https://nix-community.github.io/nixvim/plugins/lsp/index.html
     plugins.lsp = {
       enable = true;
-
+      inlayHints = true;
       # Enable the following language servers
       #  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
       #
@@ -131,8 +131,7 @@
           enable = true;
           autostart = true;
         };
-
-        jsonls = {
+        omnisharp = {
           enable = true;
           autostart = true;
         };
@@ -166,7 +165,21 @@
           enable = true;
           autostart = true;
         };
+        jsonls = {
+          enable = true;
+          autostart = true;
+        };
 
+        # Markdown
+        markdown_oxide = {
+          enable = true;
+          autostart = true;
+        };
+
+        marksman = {
+          enable = true;
+          autostart = true;
+        };
 
         cmake = {
           enable = true;

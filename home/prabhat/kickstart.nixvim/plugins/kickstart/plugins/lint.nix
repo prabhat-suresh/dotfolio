@@ -16,11 +16,11 @@
         #dockerfile = ["hadolint"];
         #inko = ["inko"];
         #janet = ["janet"];
-        #json = ["jsonlint"];
+        json = ["jsonlint"];
         #rst = ["vale"];
         #ruby = ["ruby"];
         #terraform = ["tflint"];
-        #text = ["vale"];
+        text = ["vale"];
       };
 
       # Create autocommand which carries out the actual linting

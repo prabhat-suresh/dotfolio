@@ -20,8 +20,8 @@
     #  Uncomment any of the lines below to enable them (you will need to restart 
     #  nvim).
     #
+    # ./plugins/kickstart/plugins/debug.nix 
     ./plugins/kickstart/plugins/autopairs.nix 
-    ./plugins/kickstart/plugins/debug.nix 
     ./plugins/kickstart/plugins/indent-blankline.nix 
     ./plugins/kickstart/plugins/lint.nix 
 
@@ -29,10 +29,11 @@
     # NOTE: Configure your own plugins `see https://nix-community.github.io/nixvim/` 
     # Add your plugins to ./plugins/custom/plugins and import them below
 
-    ./plugins/custom/plugins/haskellScopeHighlighting.nix 
+    # ./plugins/custom/plugins/haskellScopeHighlighting.nix 
+    ./plugins/custom/plugins/clangdExtensions.nix
+    ./plugins/custom/plugins/gitConflict.nix
     ./plugins/custom/plugins/lualine.nix 
     ./plugins/custom/plugins/renderMarkdown.nix
-    ./plugins/custom/plugins/transparent.nix 
     ./plugins/custom/plugins/yazi.nix
 ];
 
@@ -115,30 +116,29 @@
     # `:Telescope colorschme`.
     colorschemes = {
       # https://nix-community.github.io/nixvim/colorschemes/tokyonight/index.html
-      tokyonight = { enable = true; settings = {
-          # Like many other themes, this one has different styles, and you could load
-          style = "night";
-        };
-      };
-
-      # https://nix-community.github.io/nixvim/colorschemes/catppuccin/index.html 
-      # catppuccin = {
-      #   enable = true; settings = {
-      #     flavour = "mocha"; integrations = {
-      #       cmp = true; gitsigns = true; nvimtree = true; treesitter = true; notify 
-      #       = false; mini = {
-      #         enabled = true; indentscope_color = "";
-      #       };
-      #     };
-      #     transparent_background = false; styles = {
-      #       booleans = [
-      #         "bold" "italic"
-      #       ]; conditionals = [
-      #         "bold" ];
-      #     };
-      #     term_colors = true; background.dark = "mocha";
+      # tokyonight = { enable = true; settings = { # Like many other themes, this one has different styles, and you could load
+      #     style = "night";
       #   };
       # };
+
+      # https://nix-community.github.io/nixvim/colorschemes/catppuccin/index.html 
+      catppuccin = {
+        enable = true; settings = {
+          flavour = "mocha"; integrations = {
+            cmp = true; gitsigns = true; nvimtree = true; treesitter = true; notify 
+            = false; mini = {
+              enabled = true; indentscope_color = "";
+            };
+          };
+          transparent_background = false; styles = {
+            booleans = [
+              "bold" "italic"
+            ]; conditionals = [
+              "bold" ];
+          };
+          term_colors = true; background.dark = "mocha";
+        };
+      };
     };
 
     # https://nix-community.github.io/nixvim/NeovimOptions/index.html?highlight=globals#globals

@@ -29,18 +29,6 @@
     };
   };
 
-  nix = {
-    # Optimize storage
-    optimise.automatic = true;
-  
-    # Garbage collection
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 10d";
-    };
-  };
-
   networking = {
     hostName = "nixos"; # Define your hostname.
     # wireless.enable = true;  # Enables wpa_supplicant
@@ -61,17 +49,8 @@
     # firewall.enable = false;
   };
 
-  qt = {
-    enable = true;
-    # For dark theme
-    style = "adwaita-dark";
-  };
-
   # Set your time zone.
   time.timeZone = "Asia/Kolkata";
-
-  # Location
-  # location.provider = "geoclue2";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_IN";
@@ -88,8 +67,109 @@
     LC_TIME = "en_IN";
   };
 
-  hardware = {
+  # Location
+  # location.provider = "geoclue2";
 
+  nix = {
+    # Optimize storage
+    optimise.automatic = true;
+  
+    # Garbage collection
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 10d";
+    };
+  };
+
+  fonts = {
+    packages = with pkgs; [
+      (nerdfonts.override { fonts = ["JetBrainsMono"]; })
+    ];
+    fontDir.enable = true;
+  };
+
+  services = {
+
+    # Enable the X11 windowing system.
+    # You can disable this if you're only using the Wayland session.
+    xserver.enable = false;
+
+    # Enable the KDE Plasma Desktop Environment.
+    desktopManager.plasma6.enable = true;
+
+    # Enable sound with pipewire.
+    pipewire = {
+      enable = true;
+      alsa = {
+        enable = true;
+        support32Bit = true;
+      };
+      pulse.enable = true;
+      # If you want to use JACK applications, uncomment this
+      #jack.enable = true;
+  
+      # use the example session manager (no others are packaged yet so this is enabled by default,
+      # no need to redefine it in your config for now)
+      #media-session.enable = true;
+    };
+
+    displayManager = {
+      defaultSession = "hyprland";
+      sddm = {
+        enable = true;
+        wayland = {
+		enable = true;
+        	# compositor = "weston";
+	};
+      };
+    };
+
+    hypridle.enable = true;
+
+    # Enable CUPS to print documents.
+    printing.enable = true;
+  
+    # Enable the OpenSSH daemon.
+    openssh.enable = true;
+  
+    # Suspend on closing laptop lid
+    logind.lidSwitch = "suspend"; 
+
+    # Power Management
+    upower = {
+      criticalPowerAction = "Hibernate";
+      enable = true;
+      noPollBatteries = true;
+      percentageAction = 10;
+      percentageCritical = 15;
+      percentageLow = 25;
+      usePercentageForPolicy = true;
+    };
+    power-profiles-daemon.enable = true;
+
+    # powerManagement = {
+    #   powerUpCommands = "nmcli c up id jp-free-154028.protonvpn.udp";
+    #   powerDownCommands = "cat /proc/net/dev >> /home/prabhat/Desktop/networkUsage.txt";
+    # };
+
+    # virtual machine
+    spice-vdagentd.enable = true;
+  };
+
+  qt = {
+    enable = true;
+    # For dark theme
+    style = "adwaita-dark";
+  };
+
+  # Configure keymap in X11
+  services.xserver.xkb = {
+    layout = "us";
+    variant = "";
+  };
+
+  hardware = {
     #hardware acceleration
     graphics = {
       enable = true;
@@ -118,6 +198,9 @@
 
   security.rtkit.enable = true;
 
+  # Enable touchpad support (enabled default in most desktopManager).
+  # services.xserver.libinput.enable = true;
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users = {
     users.prabhat = {
@@ -134,7 +217,7 @@
     # Install firefox.
     firefox = {
       enable = true;
-      package = pkgs.firefox-devedition;
+      # package = pkgs.firefox-devedition;
     };
     zsh = {
       enable = true;
@@ -148,25 +231,26 @@
         ];
       };
       shellAliases = {
+        btop = "btop --utf-force";
         cat = "bat";
         grep = "rg";
         ls = "ls -a --color";
         tmux = "tmux -u";
       };
-      promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme && fastfetch";
+      promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
     };
     git = {
       enable = true;
     };
-  
-    # waybar.enable = true;
+
+    waybar.enable = true;
 
     hyprland = {
       enable = true;
       portalPackage = pkgs.xdg-desktop-portal-hyprland;
       systemd.setPath.enable = true;
-      # disable xwayland
-      xwayland.enable = false;
+      # enable xwayland
+      xwayland.enable = true;
     };
 
     hyprlock = { # TODO: add keybinding in config
@@ -183,7 +267,7 @@
         };
       };
     };
-  
+
     # Some programs need SUID wrappers, can be configured further or are
     # started in user sessions.
     mtr.enable = true;
@@ -194,15 +278,15 @@
   
     # wireshark.enable = true; # network sniffer
 
-    # iftop.enable = true; # network usage
+    iftop.enable = true; # network usage
+
+    # dconf (system management tool)
+    dconf = {
+      enable = true;
+    };
 
     # virt-manager
     virt-manager.enable = true; # virtualization manager
-
-    # dconf (system management tool)
-    # dconf = {
-    #   enable = true;
-    # };
 
     # Yazi - a blazingly fast terminal file manager written in Rust!
     yazi = {
@@ -318,165 +402,159 @@
     };
     fzf.fuzzyCompletion = true;
 
-    # tmux = { # terminal multiplexer
-    #   baseIndex = 1;
-    #   clock24 = true;
-    #   enable = true;
-    #   escapeTime = 0;
-    #   extraConfig = "
-    #                 set -g @catppuccin_directory_text '#{b:pane_current_path}'
-    #                 set -g @catppuccin_status_connect_separator 'no'
-    #                 set -g @catppuccin_status_fill 'icon'
-    #                 set -g @catppuccin_status_left_separator  ' '
-    #                 set -g @catppuccin_status_modules_left 'session'
-    #                 set -g @catppuccin_status_modules_right 'directory date_time'
-    #                 set -g @catppuccin_status_right_separator ' '
-    #                 set -g @catppuccin_status_right_separator_inverse 'no'
-    #                 set -g @catppuccin_window_current_fill 'number'
-    #                 set -g @catppuccin_window_current_text '#W#{?window_zoomed_flag,(),}'
-    #                 set -g @catppuccin_window_default_fill 'number'
-    #                 set -g @catppuccin_window_default_text '#W'
-    #                 set -g @catppuccin_window_left_separator ''
-    #                 set -g @catppuccin_window_middle_separator ' █'
-    #                 set -g @catppuccin_window_number_position 'right'
-    #                 set -g @catppuccin_window_right_separator ' '
-    #     ";
-    #                 # set -g @tilish-default 'main-vertical'
-    #                 # set -g default-command "reattach-to-user-namespace -l $SHELL"
-    #                 # set -g detach-on-destroy off     # don't exit from tmux when closing a session
-    #
-    #   extraConfigBeforePlugins = "
-    #                 set -g allow-passthrough on
-    #                 set -ga update-environment TERM
-    #                 set -ga update-environment TERM_PROGRAM
-    #                 set -g default-terminal 'kitty'
-    #                 set -g pane-active-border-style 'fg=magenta,bg=default'
-    #                 set -g pane-border-style 'fg=brightblack,bg=default'
-    #                 set -g set-clipboard on          # use system clipboard
-    #                 set -g status-position top       # macOS / darwin style
-    #                 set -g mouse on
-    #     ";
-    #   historyLimit = 1000000;
-    #   keyMode = "vi";
-    #   plugins = with pkgs.tmuxPlugins; [
-    #     catppuccin
-    #     mode-indicator
-    #     tilish
-    #   ];
-    #   secureSocket = true;
-    #   terminal = "screen-256color";
-    # };
+    tmux = { # terminal multiplexer
+      baseIndex = 1;
+      clock24 = true;
+      enable = true;
+      escapeTime = 0;
+      extraConfig = "
+                    set -g @catppuccin_directory_text '#{b:pane_current_path}'
+                    set -g @catppuccin_status_connect_separator 'no'
+                    set -g @catppuccin_status_fill 'icon'
+                    set -g @catppuccin_status_left_separator  ' '
+                    set -g @catppuccin_status_modules_left 'session'
+                    set -g @catppuccin_status_modules_right 'directory date_time'
+                    set -g @catppuccin_status_right_separator ' '
+                    set -g @catppuccin_status_right_separator_inverse 'no'
+                    set -g @catppuccin_window_current_fill 'number'
+                    set -g @catppuccin_window_current_text '#W#{?window_zoomed_flag,(),}'
+                    set -g @catppuccin_window_default_fill 'number'
+                    set -g @catppuccin_window_default_text '#W'
+                    set -g @catppuccin_window_left_separator ''
+                    set -g @catppuccin_window_middle_separator ' █'
+                    set -g @catppuccin_window_number_position 'right'
+                    set -g @catppuccin_window_right_separator ' '
+                    set -g @tilish-default 'main-vertical'
+                    set -g detach-on-destroy off     # don't exit from tmux when closing a session
+        ";
+                    # set -g default-command "reattach-to-user-namespace -l $SHELL"
+
+      extraConfigBeforePlugins = "
+                    set -g allow-passthrough on
+                    set -ga update-environment TERM
+                    set -ga update-environment TERM_PROGRAM
+                    set -g default-terminal 'kitty'
+                    set -g pane-active-border-style 'fg=magenta,bg=default'
+                    set -g pane-border-style 'fg=brightblack,bg=default'
+                    set -g set-clipboard on          # use system clipboard
+                    set -g status-position top       # macOS / darwin style
+                    set -g mouse on
+        ";
+      historyLimit = 1000000;
+      keyMode = "vi";
+      plugins = with pkgs.tmuxPlugins; [
+        catppuccin
+        mode-indicator
+        tilish
+      ];
+      secureSocket = true;
+      terminal = "screen-256color";
+    };
   };
 
   # Allow unfree packages
-  nixpkgs.config = {
-    allowUnfree = true;
-  };
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  nixpkgs.config.allowUnfree = true;
 
   environment = {
+    plasma6.excludePackages = with pkgs.kdePackages; [
+      konsole
+      oxygen
+    ];
     variables = {
-      GTK_THEME = "adwaita-dark";
+      # GTK_THEME = "adwaita-dark";
       AMD_VULKAN_ICD = "RADV";	#hardware acceleration
       # Enable wayland on firefox
       MOZ_ENABLE_WAYLAND=1;
-      # As suggested in https://github.com/maximbaz/wluma/issues/8
-      WLR_DRM_NO_MODIFIERS=1;
       EDITOR = "nvim";
       # TODO: add more environment variables
     };
     sessionVariables = {
-      GTK_THEME = "adwaita-dark";
+      # GTK_THEME = "adwaita-dark";
       NIXOS_OZONE_WL = "1";
     };
     systemPackages = with pkgs; [
-      # file # file type identification
-      # hyprnotify # notifications
-      # playerctl # media player
-      # swaynotificationcenter # notification center
-      # traceroute
-      # yt-dlp # youtube downloader
+      # Terminal utils
       bat # better cat
-      bato # battery notification
-      bluez # bluetooth
-      bluez-tools # bluetooth tools
-      brightnessctl # brightness control
-      btop # blazingly fast system resource monitor
-      cargo # rust package manager
+      btop # system monitor
       cmake # build system generator
-      copyq # clipboard manager
-      csharp-ls # Roslyn based c# and .NET language server TODO: doesn't work
-      dotnetCorePackages.dotnet_9.sdk # TODO: check out
-      dotnetCorePackages.sdk_9_0
-      dunst # notifications
-      evince # pdf viewer
       fastfetch # system information
       ffmpeg # video converter
       fzf # fuzzy finder
       gcc
       gdb
-      ghc # haskell compiler
-      grim # wayland grab image
-      grimblast # screenshot tool
-      hunspell # spell checker for libreoffice
-      hyprdim # dim windows on window switch
-      hyprpaper # wallpaper utility
-      hyprpicker # color picker
+      gnumake # build system generator
       img2pdf # convert images to pdf
-      kdePackages.gwenview # image viewer
-      qt5.qtwayland
       kitty # terminal emulator
-      libreoffice
       meson # build system generator
-      networkmanagerapplet
-      nodePackages.npm
-      nodejs
-      obs-studio # screen recorder
-      ocaml # ocaml compiler
-      opam # ocaml package manager
-      pkg-config
-      python3
-      qemu # virtual machine
       ripgrep # search tool
       ripgrep-all
-      roslyn # c# and .NET language server
-      roslyn-ls # language server for c# dev kit
+      tlrc # blazingly fast tldr client (written in Rust)
+      unzip
+      zsh-powerlevel10k # zsh theme
+
+      # Misc utils
+      bluez # bluetooth
+      bluez-tools # bluetooth tools
+      obs-studio # screen recorder
+      python3
+      vlc # video player
+      zed-editor # vscode killer
+
+      # Virtual machine
+      qemu # virtual machine
+      spice # remote desktop protocol
+      spice-gtk # spice client
+      spice-protocol
+      virt-viewer # virtual machine viewer
+      virtio-win # virtual machine driver
+
+      # Rust setup
+      cargo # rust package manager
       rust-analyzer # rust language server
       rustc # rust compiler
       rustfmt # rust formatter
       rustup # rust package manager
-      slurp # region selection tool
-      spice # remote desktop protocol
-      spice-gtk # spice client
-      spice-protocol
-      thunderbird # email client
-      tlrc # blazingly fast tldr client (written in Rust)
-      unzip
-      virt-viewer # virtual machine viewer
-      virtio-win # virtual machine driver
-      vlc # video player
-      wl-clipboard
-      wl-mirror # mirror screen to output  TODO: check out if this works
-      wofi # wayland application launcher
-      zsh-fzf-history-search
-      zsh-fzf-tab
-      zsh-powerlevel10k # zsh theme
-    ]
-      ++ 
+
+      # C# and .NET setup
+      csharp-ls # Roslyn based c# and .NET language server TODO: doesn't work
+      dotnetCorePackages.dotnet_9.sdk # TODO: check out
+      dotnetCorePackages.sdk_9_0
+      omnisharp-roslyn # Omnisharp based on roslyn workspaces
+      roslyn # c# and .NET language server
+      roslyn-ls # language server for c# dev kit
+
+      # Markdown setup
+      markdown-oxide # LSP inspired by Obsidian
+
+      # KDE setup
+      libsForQt5.kdeconnect-kde
+
+      # Node JS setup
+      nodePackages.npm
+      nodejs
+    ] ++
+      (with pkgs.kdePackages; [
+        kdeconnect-kde
+        qtmultimedia
+        qtstyleplugin-kvantum
+      ])
+
+    # Haskell setup
+      ++ [
+      ghc # haskell compiler
+    ] ++
       (with haskellPackages; [
         cabal-install
         diagrams
-        # ghc
         # ghcup
         haskell-language-server
       ]) ++
-      # (with hyprlandPlugins; [ # TODO: figure out how to use these
-      #   hyprexpo
-      #   hypr-dynamic-cursors
-      #   hyprspace
-      # ]) ++
+
+    # Ocaml setup
+    [
+      ocaml # ocaml compiler
+      opam # ocaml package manager
+    ] ++
     (with ocamlPackages; [
         batteries
         core
@@ -488,16 +566,84 @@
         ocamlformat
         odoc
         utop
-        vg # for vector graphics
-    ]);
+    ])
+    # Hyprland setup
+      ++ [
+        bato # battery notifications
+        bluez # bluetooth
+        bluez-tools
+        brightnessctl # brightness control
+        copyq # clipboard manager
+        dunst # notification manager
+        grim # screen capture
+        grimblast # screenshot tool
+        hyprdim
+        hyprpaper # wallpaper manager
+        networkmanagerapplet
+        tmuxinator # tmux session manager
+        wl-clipboard # wayland clipboard
+        wofi # wayland launcher
+      ]
+    # ++ (with hyprlandPlugins; [ # TODO: figure out how to use these
+      #   hyprexpo
+      #   hypr-dynamic-cursors
+      #   hyprspace
+      # ])
+    ;
   };
 
+  virtualisation = {
+    # virt-manager
+    libvirtd = {
+      enable = true;
+      qemu = {
+        swtpm.enable = true;
+        ovmf = {
+          enable = true;
+          packages = [ pkgs.OVMFFull.fd ];
+        };
+      };
+    };
+    # docker virtualization
+    # docker.enable = true;
+    spiceUSBRedirection.enable = true;
+  };
+
+  # List services that you want to enable:
+
+  # Open ports in the firewall.
+  # networking.firewall.allowedTCPPorts = [ ... ];
+  # networking.firewall.allowedUDPPorts = [ ... ];
+  # Or disable the firewall altogether.
+  # networking.firewall.enable = false;
+
+  # This value determines the NixOS release from which the default
+  # settings for stateful data, like file locations and database versions
+  # on your system were taken. It‘s perfectly fine and recommended to leave
+  # this value at the release version of the first install of this system.
+  # Before changing this value read the documentation for this option
+  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+
+  system = {
+    stateVersion = "24.05"; # Did you read the comment?
+  
+    #System Autoupgrade
+    autoUpgrade = {
+      enable = true;
+      allowReboot = false;
+      # For bleeding edge
+      channel = "https://channels.nixos.org/nixos-unstable";
+      # Stable release
+      # channel = "https://channels.nixos.org/nixos-24.05";
+      dates = "weekly";
+    };
+  };
   xdg = {
     portal = {
       enable = true;
     # For screen sharing on wayland
-      # wlr = {
-      #   enable = true;
+      wlr = {
+        enable = true;
       #   # settings = {
       #     # screencast = {
       #       # output_name = "HDMI-A-1";
@@ -508,11 +654,11 @@
       #       # chooser_cmd = "${pkgs.slurp}/bin/slurp -f %o -or";
       #     # };
       #   # };
-      # };
+      };
       xdgOpenUsePortal = true;
 
       # gtk portal needed to make gtk apps happy
-      extraPortals = with pkgs; [ xdg-desktop-portal-gtk ]; # xdg-desktop-portal-wlr ];
+      extraPortals = with pkgs; [ xdg-desktop-portal-wlr xdg-desktop-portal-gtk ]; 
     };
     terminal-exec = {
       enable = true;
@@ -525,7 +671,7 @@
     mime = {
       enable = true;
       defaultApplications = {
-        "application/pdf" = "org.gnome.Evince.desktop";
+        "application/pdf" = "org.kde.okular.desktop";
         "application/x-extension-htm" = "firefox.desktop";
         "application/x-extension-html" = "firefox.desktop";
         "application/x-extension-shtml" = "firefox.desktop";
@@ -554,122 +700,6 @@
         "x-scheme-handler/https" = "firefox.desktop";
         "x-scheme-handler/unknown" = "firefox.desktop";
       };
-    };
-  };
-
-  fonts = {
-    packages = with pkgs; [
-      (nerdfonts.override { fonts = ["JetBrainsMono"]; })
-    ];
-    fontDir.enable = true;
-    fontconfig.defaultFonts = {
-      serif = ["JetBrainsMono Nerd Font"];
-      sansSerif = ["JetBrainsMono Nerd Font"];
-      monospace = ["JetBrainsMono Nerd Font"];
-    };
-  };
-
-  virtualisation = {
-    # virt-manager
-    libvirtd = {
-      enable = true;
-      qemu = {
-        swtpm.enable = true;
-        ovmf = {
-          enable = true;
-          packages = [ pkgs.OVMFFull.fd ];
-        };
-      };
-    };
-    # docker virtualization
-    # docker.enable = true;
-    spiceUSBRedirection.enable = true;
-  };
-
-  services = {
-    # Enable sound with pipewire.
-    pipewire = {
-      enable = true;
-      alsa = {
-        enable = true;
-        support32Bit = true;
-      };
-      pulse.enable = true;
-      # If you want to use JACK applications, uncomment this
-      #jack.enable = true;
-  
-      # use the example session manager (no others are packaged yet so this is enabled by default,
-      # no need to redefine it in your config for now)
-      #media-session.enable = true;
-    };
-
-    displayManager = {
-      autoLogin = {
-        user = "prabhat";
-      };
-      sddm = {
-        autoLogin.relogin = true;
-        enable = true;
-        wayland.enable = true;
-        wayland.compositor = "weston";
-        settings = {};
-        theme = "catppuccin";
-        extraPackages = [];
-      };
-      defaultSession = "hyprland";
-    };
-    getty.autologinUser = "prabhat";
-
-    # Enable CUPS to print documents.
-    # printing.enable = true;
-  
-    # Enable the OpenSSH daemon.
-    openssh.enable = true;
-  
-    # Suspend on closing laptop lid
-    logind.lidSwitch = "suspend"; 
-    # Hibernate is buggy - mouse, speakers etc. don't work sometimes
-
-    hypridle.enable = true; # TODO: does it require startup?
-  
-    # Power Management
-    upower = {
-      criticalPowerAction = "Hibernate";
-      enable = true;
-      noPollBatteries = true;
-      percentageAction = 10;
-      percentageCritical = 15;
-      percentageLow = 25;
-      usePercentageForPolicy = true;
-    };
-    power-profiles-daemon.enable = true;
-
-    spice-vdagentd.enable = true;
-  };
-
-  # powerManagement = {
-  #   powerUpCommands = "nmcli c up id jp-free-154028.protonvpn.udp";
-  #   powerDownCommands = "cat /proc/net/dev >> /home/prabhat/Desktop/networkUsage.txt";
-  # };
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system = {
-    stateVersion = "24.05"; # Did you read the comment?
-  
-    #System Autoupgrade
-    autoUpgrade = {
-      enable = true;
-      allowReboot = false;
-      # For bleeding edge
-      channel = "https://channels.nixos.org/nixos-unstable";
-      # Stable release
-      # channel = "https://channels.nixos.org/nixos-24.05";
-      dates = "weekly";
     };
   };
 }
