@@ -42,11 +42,12 @@
       enable = true;
       wifi.powersave = true;
     };
+
+    firewall.enable = true;
     # Open ports in the firewall.
-    # firewall.allowedTCPPorts = [ ... ];
+    firewall.allowedTCPPorts = [ 8000 8001 5000 5001];
     # firewall.allowedUDPPorts = [ ... ];
     # Or disable the firewall altogether.
-    # firewall.enable = false;
   };
 
   # Set your time zone.
@@ -155,6 +156,30 @@
 
     # virtual machine
     spice-vdagentd.enable = true;
+
+    # HedgeDoc - self hosted realtime collaborative markdown editor
+    hedgedoc = {
+      enable = true;
+      settings = {
+        domain = "hedgedoc.example.com";
+        db = {
+          username = "hedgedoc";
+          database = "hedgedoc";
+          host = "localhost:5432";
+          # or via socket
+          # host = "/run/postgresql";
+          dialect = "postgresql";
+        };
+
+        port = 8001; 
+        host = "192.168.1.100"; # IP of the VM (or public IP of webserver)
+        protocolUseSSL = true;
+        allowOrigin = [
+            "localhost"
+            "hedgedoc.example.com"
+        ];
+      };
+    };
   };
 
   qt = {
@@ -439,6 +464,8 @@
                     set -g set-clipboard on          # use system clipboard
                     set -g status-position top       # macOS / darwin style
                     set -g mouse on
+                    set -g default-terminal 'screen-256color'
+                    set-option -sa terminal-overrides ',xterm-kitty:RGB'
         ";
       historyLimit = 1000000;
       keyMode = "vi";
@@ -456,10 +483,10 @@
   nixpkgs.config.allowUnfree = true;
 
   environment = {
-    plasma6.excludePackages = with pkgs.kdePackages; [
-      konsole
-      oxygen
-    ];
+    # plasma6.excludePackages = with pkgs.kdePackages; [
+    #   konsole
+    #   oxygen
+    # ];
     variables = {
       # GTK_THEME = "adwaita-dark";
       AMD_VULKAN_ICD = "RADV";	#hardware acceleration
@@ -496,7 +523,6 @@
       bluez # bluetooth
       bluez-tools # bluetooth tools
       obs-studio # screen recorder
-      python3
       vlc # video player
       zed-editor # vscode killer
 
@@ -515,6 +541,13 @@
       rustfmt # rust formatter
       rustup # rust package manager
 
+      # Python setup
+      python3
+      python312Packages.pip
+      python312Packages.python-lsp-server
+      python312Packages.python-lsp-ruff
+      python312Packages.numpy
+
       # C# and .NET setup
       csharp-ls # Roslyn based c# and .NET language server TODO: doesn't work
       dotnetCorePackages.dotnet_9.sdk # TODO: check out
@@ -527,16 +560,17 @@
       markdown-oxide # LSP inspired by Obsidian
 
       # KDE setup
-      libsForQt5.kdeconnect-kde
+      # libsForQt5.kdeconnect-kde
 
       # Node JS setup
       nodePackages.npm
       nodejs
     ] ++
       (with pkgs.kdePackages; [
-        kdeconnect-kde
-        qtmultimedia
-        qtstyleplugin-kvantum
+        # kdeconnect-kde
+        # qtmultimedia
+        # qtstyleplugin-kvantum
+        okular # pdf viewer
       ])
 
     # Haskell setup

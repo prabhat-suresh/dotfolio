@@ -59,3 +59,24 @@ windows:
   - term:
         panes: cd
         layout: main-vertical
+  - term:
+        panes: cd
+        layout: main-vertical
+  - term:
+        panes: cd
+        layout: main-vertical
+  - term:
+        panes: cd
+        layout: main-vertical
+  - term:
+        panes: cd
+        layout: main-vertical
+  - term:
+        panes: cd
+        layout: main-vertical
+  - term:
+        panes: cd
+        layout: main-vertical
+  - term:
+        panes: cd
+        layout: main-vertical

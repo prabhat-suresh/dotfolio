@@ -116,27 +116,8 @@
     # `:Telescope colorschme`.
     colorschemes = {
       # https://nix-community.github.io/nixvim/colorschemes/tokyonight/index.html
-      # tokyonight = { enable = true; settings = { # Like many other themes, this one has different styles, and you could load
-      #     style = "night";
-      #   };
-      # };
-
-      # https://nix-community.github.io/nixvim/colorschemes/catppuccin/index.html 
-      catppuccin = {
-        enable = true; settings = {
-          flavour = "mocha"; integrations = {
-            cmp = true; gitsigns = true; nvimtree = true; treesitter = true; notify 
-            = false; mini = {
-              enabled = true; indentscope_color = "";
-            };
-          };
-          transparent_background = false; styles = {
-            booleans = [
-              "bold" "italic"
-            ]; conditionals = [
-              "bold" ];
-          };
-          term_colors = true; background.dark = "mocha";
+      tokyonight = { enable = true; settings = { # Like many other themes, this one has different styles, and you could load
+          style = "night";
         };
       };
     };
