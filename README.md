@@ -1,2 +1,1 @@
-# dotfolio
-My Nixos Dotfiles
+My Dotfiles

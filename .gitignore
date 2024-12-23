@@ -1,38 +1,34 @@
-#Ignore everything
+# Ignore everything
 /*
 
-#except 
-!/.gitignore
-!/README.md
+# Except
+!.gitignore
+!README.md
+!/prabhat
 
-!/etc
-/etc/*
-!/etc/nixos
+# Ignore all files in prabhat
+/prabhat/*
 
-!/home
-/home/prabhat/*
+# Except
+!/prabhat/.config
+!/prabhat/.p10k.zsh
+!/prabhat/.zsh
+!/prabhat/.zshrc
+!/prabhat/pandoc
+!/prabhat/userChrome.css.bak
 
-!/home/prabhat/.config
-!/home/prabhat/.mozilla
-!/home/prabhat/.p10k.zsh
-!/home/prabhat/.zshrc
-!/home/prabhat/kickstart.nixvim
+#Ignore all files in .config
+/prabhat/.config/*
 
-/home/prabhat/.config/*
-!/home/prabhat/.config/bat
-!/home/prabhat/.config/bato
-!/home/prabhat/.config/btop
-!/home/prabhat/.config/dunst
-!/home/prabhat/.config/fastfetch
-!/home/prabhat/.config/hypr
-!/home/prabhat/.config/kitty
-!/home/prabhat/.config/tmuxinator/
-!/home/prabhat/.config/waybar
-!/home/prabhat/.config/wofi
+#Except
+!/prabhat/.config/bat
+!/prabhat/.config/hypr
+!/prabhat/.config/kitty
+!/prabhat/.config/nvim
+!/prabhat/.config/sway
+!/prabhat/.config/tmux
+!/prabhat/.config/yazi
 
-/home/prabhat/.mozilla/*
-!/home/prabhat/.mozilla/firefox
-/home/prabhat/.mozilla/firefox/*
-!/home/prabhat/.mozilla/firefox/5ivd34j9.default
-/home/prabhat/.mozilla/firefox/5ivd34j9.default/*
-!/home/prabhat/.mozilla/firefox/5ivd34j9.default/chrome
+/prabhat/.config/tmux/*
+
+!prabhat/.config/tmux/tmux.conf
