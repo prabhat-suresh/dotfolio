@@ -20,8 +20,6 @@ alias ls="ls -a --color"
 alias open="xdg-open"
 alias sshk="kitten ssh"
 alias rg="rg -i"
-# alias yazi="/home/prabhat/yazi/target/release/yazi"
-
 
 # Functions
 # pigz() {
@@ -52,25 +50,8 @@ source ~/.zsh/zsh-z/zsh-z.plugin.zsh
 # Syntax highlighting should always be the last
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-export PATH="$HOME/.local/bin:$PATH"
 export EDITOR=nvim
 export DISABLE_AUTO_TITLE="true"
-# BEGIN opam configuration
-# This is useful if you're using opam as it adds:
-#   - the correct directories to the PATH
-#   - auto-completion for the opam binary
-# This section can be safely removed at any time if needed.
-[[ ! -r '/home/prabhat/.opam/opam-init/init.zsh' ]] || source '/home/prabhat/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
-# END opam configuration
-export GOPATH=/home/prabhat/go
+export GTK_THEME='Catppuccin-Mocha-Standard-Mauve-dark:dark'
 
-
-[ -f "/home/prabhat/.ghcup/env" ] && . "/home/prabhat/.ghcup/env" # ghcup-env
-
-# pnpm
-export PNPM_HOME="/home/prabhat/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
+if [ -e /home/prabhat/.nix-profile/etc/profile.d/nix.sh ]; then . /home/prabhat/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

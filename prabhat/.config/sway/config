@@ -17,12 +17,12 @@ set $term kitty
 set $menu wofi --show run -ib
 
 font JetBrainsMono Nerd Font 20px
-gaps inner 5
+gaps inner 2
 gaps outer 0
 smart_gaps on
-default_border pixel 0
+default_border pixel 1
 smart_borders on
-set $borderwidth 1
+set $borderwidth 0
 hide_edge_borders both
 
 ### Sway Theming
@@ -30,26 +30,6 @@ hide_edge_borders both
 client.focused          #b4befe #b4befe #b4befe #b4befe #b4befe
 client.unfocused        #1e1e2e #1e1e2e #1e1e2e #1e1e2e #1e1e2e
 client.focused_inactive #313244 #313244 #313244 #313244 #313244
-
-# ### swayfx config
-# # Window blur:
-# blur enable
-#
-# # Corner radius: corner_radius <val>
-# corner_radius 20
-#
-# # Window shadows:
-# shadows enable
-#
-# # shadow_blur_radius <integer value 0 - 100>
-# shadow_blur_radius 20
-#
-# # LayerShell effects (to blur panels / notifications etc):
-# layer_effects "waybar" blur enable; shadows enable; corner_radius 6
-# layer_effects "notifications" blur enable; shadows enable
-#
-# # Dim unfocused windows:
-# default_dim_inactive 0.2
 
 ### Output configuration
 # Default wallpaper
@@ -67,6 +47,9 @@ bindsym $mod+d exec $menu
 
 # Reload the configuration file
 bindsym $mod+Shift+c reload
+
+# Color picker (grimpicker)
+bindsym $mod+p exec grimpicker -cn
 
 # Moving around:
 # Move your focus around
@@ -115,14 +98,18 @@ bindsym --release Print exec flameshot gui
 #     swaybar_command waybar
 # }
 
+for_window [instance="copyq"] floating enable
+for_window [instance="copyq"] resize set 1000 600
+for_window [instance="copyq"] border pixel 5
+
 # Startup programs
-exec --no-startup-id autotiling-rs
-exec --no-startup-id bato
+exec --no-startup-id /home/prabhat/.nix-profile/bin/autotiling-rs
+exec --no-startup-id /home/prabhat/.nix-profile/bin/bato
 exec --no-startup-id copyq
 exec --no-startup-id flameshot
-exec --no-startup-id nm-applet
+# exec --no-startup-id nm-applet
 # exec --no-startup-id rustup default stable
-exec --no-startup-id sway-audio-idle-inhibit
+# exec --no-startup-id sway-audio-idle-inhibit
 exec --no-startup-id dunst
 # exec --no-startup-id wluma
 
@@ -133,16 +120,16 @@ exec --no-startup-id swaymsg 'workspace 2; exec --no-startup-id firefox'
 exec --no-startup-id swaymsg 'workspace 1; exec --no-startup-id kitty tmux'
 
 # Idle configuration
-exec swayidle -w \
-        timeout 300 'hyprlock' \
-        before-sleep 'playerctl pause' \
-        before-sleep 'hyprlock'
+# exec swayidle -w \
+#         timeout 300 'hyprlock' \
+#         before-sleep 'playerctl pause' \
+#         before-sleep 'hyprlock'
 
 # clipboard (copyq)
-bindsym $mod+c exec copyq toggle
+bindsym $mod+c exec copyq show
 
 # Toggle control center
-bindsym $mod+n exec swaync-client -t -sw
+# bindsym $mod+n exec swaync-client -t -sw
 
 # Shutdown, Reboot, Lock Screen, and Logout 
 
@@ -151,7 +138,7 @@ bindsym $mod+Shift+q      mode $power_mode
 mode $power_mode {
     bindsym p         exec shutdown now
     bindsym r         exec shutdown -r now
-    bindsym l         exec hyprlock, mode "default"
+    bindsym l         exec loginctl lock-session, mode "default"
     bindsym q         exec sway exit
     bindsym h         exec systemctl hibernate, mode "default"
     bindsym s         exec systemctl suspend, mode "default"
@@ -173,11 +160,17 @@ input "1267:12637:ELAN0754:00_04F3:315D_Mouse" {
     natural_scroll enabled
 }
 
-bindsym XF86MonBrightnessUp exec brightnessctl s +5%
-bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
+input type:keyboard {
+    repeat_delay 200
+    repeat_rate 50
+}
 
-bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
-bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
-bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+# bindsym XF86MonBrightnessUp exec brightnessctl s +5%
+# bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
+#
+# bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+# bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+# bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 
 include /etc/sway/config.d/*
+include /usr/share/sway/config.d/*

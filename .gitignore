@@ -22,12 +22,23 @@
 
 #Except
 !/prabhat/.config/bat
-!/prabhat/.config/hypr
+!/prabhat/.config/copyq
+!/prabhat/.config/dunst
+!/prabhat/.config/fastfetch
+!/prabhat/.config/foot
+!/prabhat/.config/gtk-3.0
+!/prabhat/.config/gtk-4.0
 !/prabhat/.config/kitty
 !/prabhat/.config/nvim
 !/prabhat/.config/sway
+!/prabhat/.config/swaylock
 !/prabhat/.config/tmux
+!/prabhat/.config/wofi
 !/prabhat/.config/yazi
+
+/prabhat/.config/copyq/*
+
+!/prabhat/.config/copyq/themes
 
 /prabhat/.config/tmux/*
 
