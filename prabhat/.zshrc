@@ -9,7 +9,7 @@ fi
 
 # make completions case insensitive by default
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
-zstyle :compinstall filename '/home/prabhat/.zshrc'
+zstyle :compinstall filename "$HOME/.zshrc"
 
 autoload -Uz compinit
 compinit
@@ -53,5 +53,13 @@ source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 export EDITOR=nvim
 export DISABLE_AUTO_TITLE="true"
 export GTK_THEME='Catppuccin-Mocha-Standard-Mauve-dark:dark'
+
+# Loads the opam environment
+eval $(opam env)
+# User specific environment
+if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
+    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+fi
+export PATH
 
 if [ -e /home/prabhat/.nix-profile/etc/profile.d/nix.sh ]; then . /home/prabhat/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
