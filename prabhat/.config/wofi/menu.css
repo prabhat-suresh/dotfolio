@@ -1,6 +1,0 @@
-@import ".config/wofi/style.css";
-
-window {
-	font-family: "Jetbrains Mono", monospace;
-	font-size: 50px;
-}
