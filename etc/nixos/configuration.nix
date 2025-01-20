@@ -75,6 +75,7 @@
         localsend # file sharing on same network
         obs-studio
         signal-desktop
+        spotify
         vlc
         wireshark
         # Nix setup
@@ -667,6 +668,7 @@
                 lineMode = "size";
                 show_hidden = true;
                 show_symlink = true;
+                sort_by = "size";
               };
               preview = {
                 image_quality = 90;
