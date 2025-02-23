@@ -69,8 +69,11 @@
         zsh-vi-mode
         zsh-z
         # Misc utils
+        baobab # Gnome's disk usage analyzer (pie chart)
         catppuccin
         discord
+        docker
+        gnome-calculator
         jq
         localsend # file sharing on same network
         obs-studio
@@ -87,6 +90,9 @@
         rustc
         rustfmt
         rustup
+        # Go setup
+        go
+        gopls
         # Python setup
         python3
         python313Packages.numpy
@@ -94,6 +100,7 @@
         ruff
         # Markdown setup
         markdown-oxide # LSP inspired by Obsidian
+        md2pdf
         hedgedoc # Self hosted collaborative markdown editor
         hedgedoc-cli
         # Coq setup
@@ -135,16 +142,50 @@
         opam
       ]
       ++ (with ocamlPackages; [
+        async
         batteries
+        cohttp
         core
+        core_bench
         core_extended
+        dns
         dune_3
+        eliom
         findlib
+        fmt
+        gnuplot
+        graphics
+        graphql
+        hashcons
+        irmin
+        js_of_ocaml
+        jwto
+        lablgl
+        lablgtk
+        lablgtk3
+        lwt
         merlin
+        # minttea
         ocaml-lsp
         ocamlformat
+        ocaml_mysql
+        ocsigen_server
+        ocsigen-toolkit
         odoc
+        ounit
+        owl
+        pgocaml
+        pgocaml_ppx
+        ppxlib
+        ppxlib_jane
+        tcpip
+        topological_sort
+        trie
+        unionFind
+        uri
         utop
+        wasm
+        yojson
       ]);
   };
   fonts = {
@@ -204,6 +245,7 @@
   nixpkgs.config.allowUnfree = true;
   programs = {
     bat.enable = true;
+    direnv.enable = true;
     firefox.enable = true;
     fzf.fuzzyCompletion = true;
     git.enable = true;
@@ -248,8 +290,10 @@
       };
       shellInit = ''
         source ${pkgs.zsh-z}/share/zsh-z/zsh-z.plugin.zsh 
-         source ${pkgs.zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh 
-         source ~/.p10k.zsh '';
+        source ${pkgs.zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh 
+        source ~/.p10k.zsh 
+        eval "$(direnv hook zsh)"
+      '';
       syntaxHighlighting.enable = true;
       zsh-autoenv.enable = true;
     };
@@ -306,6 +350,7 @@
         "cdrom"
         "dialout"
         "disk"
+        "docker"
         "floppy"
         "input"
         "keys"
@@ -345,6 +390,7 @@
     };
     defaultUserShell = pkgs.zsh;
   };
+  virtualisation.docker.enable = true;
   xdg = {
     portal = {
       enable = true;
@@ -770,10 +816,10 @@
                   on-timeout = "hyprctl dispatch dpms off";
                   on-resume = "hyprctl dispatch dpms on";
                 }
-                {
-                  timeout = 420;
-                  on-timeout = "systemctl suspend";
-                }
+                # {
+                #   timeout = 420;
+                #   on-timeout = "systemctl suspend";
+                # }
               ];
             };
           };
@@ -800,10 +846,10 @@
             exec-once = [
               "bato"
               "copyq"
-              "dunst"
-              "hypridle"
+              # "dunst"
+              # "hypridle"
               "hyprdim"
-              "hyprpaper"
+              # "hyprpaper"
             ];
             env = [
               "XCURSOR_SIZE,24"

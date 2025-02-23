@@ -138,10 +138,10 @@
           enable = true;
           autostart = true;
         };
-        tailwindcss = {
-          enable = true;
-          autostart = true;
-        };
+        # tailwindcss = {
+        #   enable = true;
+        #   autostart = true;
+        # };
         cssls = {
           enable = true;
           autostart = true;
@@ -162,14 +162,14 @@
           enable = true;
           autostart = true;
         };
-        emmet_ls = {
-          enable = true;
-          autostart = true;
-        };
-        htmx = {
-          enable = true;
-          autostart = true;
-        };
+        # emmet_ls = {
+        #   enable = true;
+        #   autostart = true;
+        # };
+        # htmx = {
+        #   enable = true;
+        #   autostart = true;
+        # };
         jsonls = {
           enable = true;
           autostart = true;

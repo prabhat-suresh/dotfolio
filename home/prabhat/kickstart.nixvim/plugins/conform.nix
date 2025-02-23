@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   programs.nixvim = {
     # Dependencies
     #
@@ -54,6 +55,16 @@
         mode = "n";
         key = "<leader>d";
         action = ":bd<CR>";
+      }
+      {
+        mode = "n";
+        key = "<leader>n";
+        action = ":bn<CR>";
+      }
+      {
+        mode = "n";
+        key = "<leader>p";
+        action = ":bp<CR>";
       }
       {
         mode = "n";
