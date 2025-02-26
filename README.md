@@ -1,1 +1,1 @@
-# NixOS Dotfiles
+My Dotfiles

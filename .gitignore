@@ -4,28 +4,42 @@
 # Except
 !.gitignore
 !README.md
-!/home
-!/etc
-
-# Ignore all files in home and etc
-/home/*
-/etc/*
-
-#Except
-!/home/prabhat
-!/etc/nixos
+!/prabhat
 
 # Ignore all files in prabhat
-/home/prabhat/*
+/prabhat/*
 
 # Except
-!/home/prabhat/.config
-!/home/prabhat/kickstart.nixvim
-!/home/prabhat/.p10k.zsh
-!/home/prabhat/userChrome.css.bak
+!/prabhat/.config
+!/prabhat/.p10k.zsh
+!/prabhat/.zsh
+!/prabhat/.zshrc
+!/prabhat/pandoc
+!/prabhat/userChrome.css.bak
 
 #Ignore all files in .config
-/home/prabhat/.config/*
+/prabhat/.config/*
 
 #Except
-!/home/prabhat/.config/bato
+!/prabhat/.config/bat
+!/prabhat/.config/copyq
+!/prabhat/.config/dunst
+!/prabhat/.config/fastfetch
+!/prabhat/.config/foot
+!/prabhat/.config/gtk-3.0
+!/prabhat/.config/gtk-4.0
+!/prabhat/.config/kitty
+!/prabhat/.config/nvim
+!/prabhat/.config/sway
+!/prabhat/.config/swaylock
+!/prabhat/.config/tmux
+!/prabhat/.config/wofi
+!/prabhat/.config/yazi
+
+/prabhat/.config/copyq/*
+
+!/prabhat/.config/copyq/themes
+
+/prabhat/.config/tmux/*
+
+!prabhat/.config/tmux/tmux.conf
