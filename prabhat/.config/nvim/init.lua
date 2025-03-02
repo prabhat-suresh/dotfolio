@@ -218,6 +218,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	end
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
+vim.opt.rtp:append("/home/prabhat/.opam/default/share/ocp-indent/vim")
 
 -- [[ Configure and install plugins ]]
 --
@@ -631,7 +632,7 @@ require("lazy").setup({
 				bashls = {},
 				clangd = {},
 				cmake = {},
-				coq_lsp = {},
+				-- coq_lsp = {},
 				cssls = {},
 				-- dockerls = {},
 				eslint = {},
@@ -1010,6 +1011,7 @@ require("lazy").setup({
 	},
 	{ "akinsho/git-conflict.nvim" },
 	{ "whonore/Coqtail" },
+	-- { "tomtomjhj/coq-lsp.nvim" },
 	{
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -1078,6 +1080,32 @@ require("lazy").setup({
 	-- },
 })
 
+-- require("coq-lsp").setup({
+-- 	-- The configuration for coq-lsp.nvim.
+-- 	-- The following is the default configuration.
+-- 	-- coq_lsp_nvim = {
+-- 	-- to be added
+-- 	-- },
+--
+-- 	-- The configuration forwarded to `:help lspconfig-setup`.
+-- 	-- The following is an example.
+-- 	lsp = {
+-- 		-- on_attach = function(client, bufnr)
+-- 		-- your mappings, etc
+-- 		-- end,
+-- 		-- coq-lsp server initialization configurations, defined here:
+-- 		-- https://github.com/ejgallego/coq-lsp/blob/main/editor/code/src/config.ts#L3
+-- 		-- Documentations are at https://github.com/ejgallego/coq-lsp/blob/main/editor/code/package.json.
+-- 		init_options = {
+-- 			eager_diagnostics = false,
+-- 			send_diags_extra_data = false,
+-- 			send_perf_data = false,
+-- 			show_coq_info_messages = false,
+-- 			show_notices_as_diagnostics = false,
+-- 		},
+-- 		autostart = true, -- use this if you want to manually launch coq-lsp with :LspStart.
+-- 	},
+-- })
 require("lualine").setup({
 	options = {
 		icons_enabled = true,
