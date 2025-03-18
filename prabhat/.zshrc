@@ -52,6 +52,7 @@ export DISABLE_AUTO_TITLE="true"
 
 # Loads the opam environment
 eval $(opam env)
+# eval $(opam env --switch=latest)
 # User specific environment
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
     PATH="$HOME/.local/bin:$HOME/bin:$PATH"

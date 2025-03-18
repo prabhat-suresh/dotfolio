@@ -13,9 +13,8 @@
 !/prabhat/.config
 !/prabhat/.p10k.zsh
 !/prabhat/.zsh
+!/prabhat/.zshenv
 !/prabhat/.zshrc
-!/prabhat/pandoc
-!/prabhat/userChrome.css.bak
 
 #Ignore all files in .config
 /prabhat/.config/*
@@ -24,14 +23,11 @@
 !/prabhat/.config/bat
 !/prabhat/.config/copyq
 !/prabhat/.config/dunst
-!/prabhat/.config/fastfetch
-!/prabhat/.config/foot
 !/prabhat/.config/gtk-3.0
 !/prabhat/.config/gtk-4.0
+!/prabhat/.config/hypr
 !/prabhat/.config/kitty
 !/prabhat/.config/nvim
-!/prabhat/.config/sway
-!/prabhat/.config/swaylock
 !/prabhat/.config/tmux
 !/prabhat/.config/wofi
 !/prabhat/.config/yazi
