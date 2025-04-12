@@ -1,0 +1,36 @@
+{
+    "C_Cpp.vcFormat.newLine.scopeBracesOnSeparateLines": true,
+    "editor": {
+        "experimental.treeSitterTelemetry": true,
+        "fontLigatures": true,
+        "fontSize": 14,
+        "formatOnSave": true,
+        "wordWrap": "on",
+    },
+    "git.openRepositoryInParentFolders": "always",
+    "telemetry": {
+        "feedback.enabled": false,
+        "telemetryLevel": "off",
+    },
+    "vim": {
+        "handleKeys": {
+            "<C-d>": true,
+            "<C-u>": true,
+            "<C-r>": true,
+            "<C-v>": true,
+            "<C-w>": true,
+        },
+        "highlightedyank.enable": true,
+        "history": 1000,
+        "smartRelativeLine": true,
+        "useCtrlKeys": false,
+        "useSystemClipboard": true,
+    },
+    "workbench.colorTheme": "Tokyo Night",
+    "supermaven.enable": {
+        "*": false
+    },
+    "geminicodeassist.inlineSuggestions.enableAuto": false,
+    "window.zoomLevel": 3,
+    "github.copilot.nextEditSuggestions.enabled": true,
+}

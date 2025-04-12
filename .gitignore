@@ -33,10 +33,15 @@
 !/prabhat/.config/yazi
 !/prabhat/.config/zed
 
-/prabhat/.config/copyq/*
+!/prabhat/.config/Code
+/prabhat/.config/Code/*
+!prabhat/.config/Code/User
+/prabhat/.config/Code/User/*
+!/prabhat/.config/Code/User/settings.json
+!/prabhat/.config/Code/User/keybindings.json
 
+/prabhat/.config/copyq/*
 !/prabhat/.config/copyq/themes
 
 /prabhat/.config/tmux/*
-
 !prabhat/.config/tmux/tmux.conf
