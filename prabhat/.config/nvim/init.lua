@@ -163,9 +163,43 @@ vim.opt.scrolloff = 10
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+
 vim.keymap.set("n", "<leader>d", "<cmd>bd<CR>")
 vim.keymap.set("n", "<leader>n", "<cmd>bn<CR>")
 vim.keymap.set("n", "<leader>p", "<cmd>bp<CR>")
+-- barbar keymaps
+-- local map = vim.api.nvim_set_keymap
+-- local opts = { noremap = true, silent = true }
+--
+-- -- Move to previous/next
+-- vim.keymap.set("n", "<leader>n", "<Cmd>BufferNext<CR>")
+-- vim.keymap.set("n", "<leader>p", "<Cmd>BufferPrevious<CR>")
+--
+-- -- Goto buffer in position...
+-- map("n", "<leader>1", "<Cmd>BufferGoto 1<CR>", opts)
+-- map("n", "<leader>2", "<Cmd>BufferGoto 2<CR>", opts)
+-- map("n", "<leader>3", "<Cmd>BufferGoto 3<CR>", opts)
+-- map("n", "<leader>4", "<Cmd>BufferGoto 4<CR>", opts)
+-- map("n", "<leader>5", "<Cmd>BufferGoto 5<CR>", opts)
+-- map("n", "<leader>6", "<Cmd>BufferGoto 6<CR>", opts)
+-- map("n", "<leader>7", "<Cmd>BufferGoto 7<CR>", opts)
+-- map("n", "<leader>8", "<Cmd>BufferGoto 8<CR>", opts)
+-- map("n", "<leader>9", "<Cmd>BufferGoto 9<CR>", opts)
+-- map("n", "<leader>0", "<Cmd>BufferLast<CR>", opts)
+--
+-- -- Close buffer
+-- vim.keymap.set("n", "<leader>d", "<Cmd>BufferClose<CR>")
+--
+-- -- Magic buffer-picking mode
+-- map("n", "<C-p>", "<Cmd>BufferPick<CR>", opts)
+-- map("n", "<C-s-p>", "<Cmd>BufferPickDelete<CR>", opts)
+--
+-- -- Sort automatically by...
+-- map("n", "<Space>bb", "<Cmd>BufferOrderByBufferNumber<CR>", opts)
+-- map("n", "<Space>bn", "<Cmd>BufferOrderByName<CR>", opts)
+-- map("n", "<Space>bd", "<Cmd>BufferOrderByDirectory<CR>", opts)
+-- map("n", "<Space>bl", "<Cmd>BufferOrderByLanguage<CR>", opts)
+-- map("n", "<Space>bw", "<Cmd>BufferOrderByWindowNumber<CR>", opts)
 
 -- Diagnostic keymaps
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
@@ -218,8 +252,39 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	end
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
-vim.opt.rtp:append("/home/prabhat/.opam/latest3/share/ocp-indent/vim")
-vim.opt.rtp:append("/home/prabhat/.opam/latest3/share/merlin/vim")
+
+-- Ocaml setup
+
+-- Get the opam share directory path
+local opam_share_cmd = vim.fn.system("opam var share")
+-- Trim whitespace/newline from the command output
+local opam_share_path = vim.fn.trim(opam_share_cmd)
+
+-- Construct the path to the merlin vim plugin directory
+-- local merlin_vim_path = opam_share_path .. "/merlin/vim"
+
+-- Check if the directory actually exists before adding it
+-- local path_exists = vim.fn.isdirectory(merlin_vim_path) == 1
+
+-- if path_exists then
+-- Add the merlin vim plugin path to the beginning of the runtimepath
+-- vim.opt.rtp:prepend(merlin_vim_path)
+-- print("Successfully added Merlin Vim plugin to runtimepath: " .. merlin_vim_path)
+-- else
+-- print( "Merlin Vim plugin path not found at: " .. merlin_vim_path .. ". Ensure 'opam install merlin' was successful.")
+-- end
+
+-- Optional: Add related OCaml plugins if installed via opam
+local ocp_indent_path = opam_share_path .. "/ocp-indent/vim"
+if vim.fn.isdirectory(ocp_indent_path) == 1 then
+	vim.opt.rtp:prepend(ocp_indent_path)
+	-- print("Added ocp-indent Vim plugin to runtimepath.")
+end
+
+-- You might need to add filetype detection if it's not already set up
+-- vim.cmd([[ autocmd BufRead,BufNewFile *.ml,*.mli set filetype=ocaml ]])
+-- vim.cmd([[ autocmd BufRead,BufNewFile *.mly set filetype=ocamlyacc ]])
+-- vim.cmd([[ autocmd BufRead,BufNewFile *.mll set filetype=ocamllex ]])
 
 -- [[ Configure and install plugins ]]
 --
@@ -995,12 +1060,29 @@ require("lazy").setup({
 	-- Or use telescope!
 	-- In normal mode type `<space>sh` then write `lazy.nvim-plugin`
 	-- you can continue same window with `<space>sr` which resumes last telescope search
-	{
-		"supermaven-inc/supermaven-nvim",
-		config = function()
-			require("supermaven-nvim").setup({})
-		end,
-	},
+	-- {
+	-- 	"supermaven-inc/supermaven-nvim",
+	-- 	config = function()
+	-- 		require("supermaven-nvim").setup({})
+	-- 	end,
+	-- },
+	-- {
+	-- 	"romgrk/barbar.nvim",
+	-- 	dependencies = {
+	-- 		"lewis6991/gitsigns.nvim", -- OPTIONAL: for git status
+	-- 		"nvim-tree/nvim-web-devicons", -- OPTIONAL: for file icons
+	-- 	},
+	-- 	-- init = function()
+	-- 	-- 	vim.g.barbar_auto_setup = false
+	-- 	-- end,
+	-- 	-- opts = {
+	-- 	-- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
+	-- 	-- animation = true,
+	-- 	-- insert_at_start = true,
+	-- 	-- …etc.
+	-- 	-- },
+	-- 	-- version = '^1.0.0', -- optional: only update when a new 1.x version is released
+	-- },
 	{
 		"MeanderingProgrammer/render-markdown.nvim",
 		dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.nvim" }, -- if you use the mini.nvim suite

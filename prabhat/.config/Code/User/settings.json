@@ -1,18 +1,68 @@
 {
     "C_Cpp.vcFormat.newLine.scopeBracesOnSeparateLines": true,
+    "chat.commandCenter.enabled": false,
     "editor": {
-        "experimental.treeSitterTelemetry": true,
+        "acceptSuggestionOnEnter": "smart",
+        "cursorSmoothCaretAnimation": "on",
+        "experimental": {
+            "treeSitterTelemetry": true,
+        },
+        "fontFamily": "'Fira Code','Droid Sans Mono', 'monospace', monospace",
         "fontLigatures": true,
-        "fontSize": 14,
+        "fontSize": 20,
         "formatOnSave": true,
+        "glyphMargin": false,
+        "minimap": {
+            "enabled": false
+        },
+        "smoothScrolling": false,
         "wordWrap": "on",
     },
-    "git.openRepositoryInParentFolders": "always",
+    "errorLens": {
+        "codeLensEnabled": true,
+        "messageEnabled": false,
+        "removeLinebreaks": false,
+    },
+    "git": {
+        "blame": {
+            "editorDecoration": {
+                "enabled": false
+            }
+        },
+        "diagnosticsCommitHook": {
+            "Enabled": true
+        },
+        "openRepositoryInParentFolders": "always",
+    },
+    "ocaml": {
+        "commands": {
+            "typedHoles": {
+                "constructAfterNavigate": true
+            },
+            "typeSelection": {
+                "alwaysClearOutputChannel": true,
+                "outputChannelResults": false,
+            },
+        },
+        "server": {
+            "duneDiagnostics": false,
+        },
+    },
+    "security": {
+        "workspace": {
+            "trust": {
+                "enabled": false,
+                "startupPrompt": "never",
+                "untrustedFiles": "open",
+            }
+        }
+    },
     "telemetry": {
         "feedback.enabled": false,
         "telemetryLevel": "off",
     },
     "vim": {
+        "foldfix": true,
         "handleKeys": {
             "<C-d>": true,
             "<C-u>": true,
@@ -20,17 +70,41 @@
             "<C-v>": true,
             "<C-w>": true,
         },
-        "highlightedyank.enable": true,
+        "highlightedyank": {
+            "enable": true
+        },
         "history": 1000,
+        "leader": " ",
         "smartRelativeLine": true,
         "useCtrlKeys": false,
         "useSystemClipboard": true,
+        // In Visual mode, start a search with `*` or `#` using the current selection.
+        "visualstar": false,
     },
-    "workbench.colorTheme": "Tokyo Night",
-    "supermaven.enable": {
-        "*": false
+    "vscoq": {
+        "completion": {
+            "enable": false
+        },
+        "diagnostics": {
+            "full": true
+        },
+        "goals": {
+            "auto": true
+        },
     },
-    "geminicodeassist.inlineSuggestions.enableAuto": false,
-    "window.zoomLevel": 3,
-    "github.copilot.nextEditSuggestions.enabled": true,
+    "window": {
+        "commandCenter": false,
+        "customMenuBarAltFocus": false,
+        "customTitleBarVisibility": "never",
+        "enableMenuBarMnemonics": false,
+        "menuBarVisibility": "hidden",
+        // "titleBarStyle": "native",
+        "zoomLevel": 2,
+    },
+    "workbench": {
+        "colorTheme": "Tokyo Night",
+        "layoutControl": {
+            "enabled": false
+        },
+    }
 }

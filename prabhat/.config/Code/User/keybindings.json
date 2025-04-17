@@ -1,8 +1,48 @@
 // Place your key bindings in this file to override the defaults
 [
     {
+        "key": "ctrl+p",
+        "command": "selectPrevSuggestion",
+        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus || suggestWidgetVisible && textInputFocus && !suggestWidgetHasFocusedSuggestion"
+    },
+    {
+        "key": "ctrl+n",
+        "command": "selectNextSuggestion",
+        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus || suggestWidgetVisible && textInputFocus && !suggestWidgetHasFocusedSuggestion"
+    },
+    {
+        "key": "ctrl+j",
+        "command": "editor.action.inlineSuggest.acceptNextWord",
+        "when": "inlineSuggestionVisible && !editorReadonly"
+    },
+    {
+        "key": "alt+l",
+        "command": "extension.coq.interpretToPoint",
+        "when": "config.vscoq.proof.mode == '0' && resourceScheme == 'coq-view'"
+    },
+    {
+        "key": "alt+l",
+        "command": "extension.coq.interpretToPoint",
+        "when": "editorTextFocus && config.vscoq.proof.mode == '0' && editorLangId == 'coq'"
+    },
+    {
+        "key": "alt+j",
+        "command": "extension.coq.stepForward",
+        "when": "resourceScheme == 'coq-view'"
+    },
+    {
+        "key": "alt+j",
+        "command": "extension.coq.stepForward",
+        "when": "editorTextFocus && editorLangId == 'coq'"
+    },
+    {
         "key": "shift+k",
         "command": "editor.action.showHover",
         "when": "editorTextFocus"
+    },
+    {
+        "key": "shift+k",
+        "command": "workbench.action.showHover",
+        "when": "!editorTextFocus"
     },
 ]

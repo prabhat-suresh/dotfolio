@@ -8,6 +8,7 @@
 // command palette (cmd-shift-p / ctrl-shift-p)
 
 {
+  "show_edit_predictions": false,
   "theme": {
     "mode": "dark",
     "light": "One Light",
