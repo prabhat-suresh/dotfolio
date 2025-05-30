@@ -2,7 +2,7 @@
     "C_Cpp.vcFormat.newLine.scopeBracesOnSeparateLines": true,
     "chat.commandCenter.enabled": false,
     "editor": {
-        "acceptSuggestionOnEnter": "smart",
+        // "acceptSuggestionOnEnter": "smart",
         "cursorSmoothCaretAnimation": "on",
         "experimental": {
             "treeSitterTelemetry": true,
@@ -15,7 +15,7 @@
         "minimap": {
             "enabled": false
         },
-        "smoothScrolling": false,
+        "smoothScrolling": true,
         "wordWrap": "on",
     },
     "errorLens": {
@@ -26,7 +26,7 @@
     "git": {
         "blame": {
             "editorDecoration": {
-                "enabled": false
+                "enabled": true
             }
         },
         "diagnosticsCommitHook": {
@@ -41,13 +41,14 @@
             },
             "typeSelection": {
                 "alwaysClearOutputChannel": true,
-                "outputChannelResults": false,
+                "outputChannelResults": true,
             },
         },
         "server": {
             "duneDiagnostics": false,
         },
     },
+    "search.quickOpen.history.filterSortOrder": "recency",
     "security": {
         "workspace": {
             "trust": {
@@ -62,7 +63,6 @@
         "telemetryLevel": "off",
     },
     "vim": {
-        "foldfix": true,
         "handleKeys": {
             "<C-d>": true,
             "<C-u>": true,
@@ -74,7 +74,7 @@
             "enable": true
         },
         "history": 1000,
-        "leader": " ",
+        // "leader": " ",
         "smartRelativeLine": true,
         "useCtrlKeys": false,
         "useSystemClipboard": true,
@@ -95,7 +95,7 @@
     "window": {
         "commandCenter": false,
         "customMenuBarAltFocus": false,
-        "customTitleBarVisibility": "never",
+        // "customTitleBarVisibility": "never",
         "enableMenuBarMnemonics": false,
         "menuBarVisibility": "hidden",
         // "titleBarStyle": "native",
@@ -106,5 +106,6 @@
         "layoutControl": {
             "enabled": false
         },
-    }
+    },
+    "workbench.colorTheme": "Default High Contrast Light"
 }

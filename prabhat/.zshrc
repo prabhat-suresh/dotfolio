@@ -16,6 +16,7 @@ compinit
 
 # Aliases
 alias cat="bat"
+alias find="fd"
 alias grep="grep -i"
 alias ls="lsd -a"
 alias open="xdg-open"
@@ -62,3 +63,6 @@ export PATH
 if [ -e /home/prabhat/.nix-profile/etc/profile.d/nix.sh ]; then . /home/prabhat/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
 [ -f "/home/prabhat/.ghcup/env" ] && . "/home/prabhat/.ghcup/env" # ghcup-env
+
+# Starship.rs prompt
+# eval "$(starship init zsh)"
